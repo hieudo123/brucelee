@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:minHeight="?attr/actionBarSize"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <ImageView
+                android:id="@+id/iv_news_detail"
+                android:layout_width="match_parent"
+                android:scaleType="fitXY"
+                android:layout_height="348dp"
+                android:background="@drawable/bglogin"/>
+            <include layout="@layout/toolbar"
+                app:layout_scrollFlags="scroll|enterAlways"
+                android:layout_width="match_parent"
+                app:layout_collapseMode="pin"
+                android:layout_height="wrap_content">
+            </include>
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/bottom_sheet"
+        android:background="@color/text_dray"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:clipToPadding="true">
+        <ScrollView
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:padding="@dimen/w5"
+                android:layout_marginTop="@dimen/w10"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tv_news_detail_title"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:padding="@dimen/w5"
+                    android:textSize="@dimen/sp18"
+                    android:text="@string/test"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/tv_news_detail_createdat"
+                    android:padding="@dimen/w5"
+                    android:textColor="@color/text_shadow"
+                    android:textSize="@dimen/w12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="22:00 15/4/2019"/>
+                <LinearLayout
+                    android:padding="@dimen/w5"
+                    android:layout_marginTop="@dimen/w5"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/tv_quality_like"
+                            android:textColor="@color/text_shadow"
+                            android:textSize="@dimen/w16"
+                           android:drawablePadding="@dimen/w10"
+                            android:paddingLeft="@dimen/w10"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="10"
+                            android:drawableRight="@drawable/ic_like2"/>
+                        <TextView
+                            android:textColor="@color/text_shadow"
+                            android:paddingLeft="@dimen/w10"
+                            android:textSize="@dimen/w16"
+                            android:drawablePadding="@dimen/w10"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="10"
+                            android:drawableRight="@drawable/ic_comment"/>
+                        <TextView
+                            android:drawablePadding="@dimen/w10"
+                            android:id="@+id/tv_view"
+                            android:textColor="@color/text_shadow"
+                            android:paddingLeft="@dimen/w10"
+                            android:textSize="@dimen/w16"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="10"
+                            android:drawableRight="@drawable/icons_eye_16"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:gravity="right"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/tv_favorite"
+                            android:textColor="@color/text_shadow"
+                            android:textSize="@dimen/w16"
+                            android:drawablePadding="@dimen/w10"
+                            android:paddingLeft="@dimen/w10"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/favorite"
+                            android:drawableRight="@drawable/ic_love"/>
+                        <TextView
+                            android:textColor="@color/text_shadow"
+                            android:paddingLeft="@dimen/w10"
+                            android:textSize="@dimen/w16"
+                            android:drawablePadding="@dimen/w10"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/share"
+                            android:drawableRight="@drawable/ic_share"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+                <TextView
+                    android:padding="@dimen/w5"
+                    android:layout_marginTop="@dimen/w5"
+                    android:text="@string/test2"
+                    android:textSize="@dimen/w16"
+                    android:id="@+id/tv_news_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <View
+                    android:layout_marginTop="@dimen/w10"
+                    android:background="@color/color_bghome"
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp">
+                </View>
+            </LinearLayout>
+
+        </ScrollView>
+
+    </android.support.v4.widget.NestedScrollView>
+
+
+</android.support.design.widget.CoordinatorLayout>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_news"
+        app:showAsAction="withText"
+        android:title="@string/home" />
+
+    <item
+        android:id="@+id/navigation_house"
+        android:icon="@drawable/ic_home"
+        app:showAsAction="withText"
+        android:title="@string/house" />
+
+    <item
+        android:id="@+id/navigation_furniture"
+        app:showAsAction="withText"
+        android:icon="@drawable/ic_sofa"
+        android:title="@string/furniture" />
+</menu>

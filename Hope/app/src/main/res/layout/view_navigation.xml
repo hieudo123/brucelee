@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:background="@color/text_white"
+        android:layout_width="280dp"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:id="@+id/rl_profile"
+            android:background="@color/color_homebar"
+            android:layout_width="match_parent"
+            android:layout_height="198dp">
+            <ImageView
+                android:id="@+id/iv_avt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/avt_default" />
+
+            <TextView
+                android:id="@+id/tv_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/w20"
+                android:textColor="@color/text_white"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="@dimen/w20"
+                android:layout_marginBottom="@dimen/w20"
+                android:layout_toEndOf="@+id/iv_avt"
+                android:text="Đỗ Minh Hiếu" />
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

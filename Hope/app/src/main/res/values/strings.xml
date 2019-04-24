@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">Life Style</string>
+    <string name="username">Username</string>
+    <string name="login">ĐĂNG NHẬP</string>
+    <string name="sigin">ĐĂNG KÝ</string>
+    <string name="name">Họ và tên</string>
+    <string name="phone">Số điện thoại</string>
+    <string name="password">Mật khẩu</string>
+    <string name="re_password">Nhập lại mật khẩu</string>
+    <string name="news">TIN TỨC</string>
+    <string name="products">SẢN PHẨM</string>
+    <string name="navigation_drawer_open">Open Navigation drawer</string>
+    <string name="navigation_drawer_close">Close Navigation drawer</string>
+    <string name="signin_google">Login with Google</string>
+    <string name="login_fb">Login with Facebook</string>
+    <string name="home">Trang chủ</string>
+    <string name="house">Nhà</string>
+    <string name="furniture">Nội thất</string>
+    <string name="test">Dự án Life Style sắp được tiến hành</string>
+    <string name="favorite">Yêu thích</string>
+    <string name="share">Chia sẻ</string>
+    <string name="test2">I can finally ask a question to get my points up.\nIn android studio,
+        I want to be able to override the method, however I do not know the keyboard shortcut. Does anyone know?</string>
+    <string name="title">Nhập tiêu đề</string>
+    <string name="createnew">Tạo tin tức</string>
+    <string name="content">Nhập nội dung</string>
+    <string name="gioitinh">Giới tính</string>
+    <string name="address">Địa chỉ</string>
+    <string name="profile">Thông tin cá nhân</string>
+    <string name="edit">Chỉnh sửa</string>
+
+</resources>
