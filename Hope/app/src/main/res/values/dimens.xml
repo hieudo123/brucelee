@@ -122,6 +122,7 @@
     <dimen name="w12">12dp</dimen>
     <dimen name="w16">16dp</dimen>
     <dimen name="w200">200dp</dimen>
+    <dimen name="w248">248dp</dimen>
     <dimen name="sp20">20sp</dimen>
     <dimen name="sp21">21sp</dimen>
     <dimen name="sp14">14sp</dimen>
@@ -134,5 +135,6 @@
     <dimen name="custom_checkbox1">9dp</dimen>
     <dimen name="custom_checkbox2">5dp</dimen>
     <dimen name="sp10">12sp</dimen>
+    <dimen name="w150">148dp</dimen>
 
 </resources>

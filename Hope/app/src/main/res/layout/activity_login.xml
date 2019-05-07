@@ -15,16 +15,11 @@
         android:layout_height="match_parent"
         android:layout_weight="3"
         android:gravity="center_vertical|center_horizontal">
-
-
-
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/w5"
             android:src="@drawable/logo_1" />
-
-
     </LinearLayout>
     <ProgressBar
         android:visibility="gone"
@@ -70,9 +65,21 @@
             android:drawableLeft="@drawable/ic_lock_black_24dp"
             android:hint="@string/password"
             android:inputType="textPassword"
+
             android:padding="@dimen/w12"
             android:paddingLeft="@dimen/pd15"
             android:textSize="@dimen/textsize" />
+
+        <TextView
+            android:text="@string/show"
+            android:visibility="gone"
+            android:id="@+id/tv_show_pass"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/et_password"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/w20" />
 
         <LinearLayout
             android:id="@+id/content"
@@ -167,24 +174,31 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_expert"
                     android:layout_centerHorizontal="true"
-                    android:background="@drawable/btn_google_signin_light_normal_mdpi"
+                    android:drawableLeft="@drawable/ic_google_48"
+                    android:background="@drawable/custom_buttom_loginfb"
                     android:gravity="center_vertical"
                     android:text="@string/signin_google"
                     android:textSize="@dimen/w16"
                     android:textStyle="bold" />
-
                 <TextView
-                    android:id="@+id/tv_login_stackexchange"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_marginTop="@dimen/sp21"
-                    android:background="@drawable/bg_edittext"
-                    android:drawableLeft="@drawable/icons_facebook_48"
-                    android:gravity="center_vertical"
-                    android:text="@string/login_fb"
-                    android:textSize="@dimen/w16"
-                    android:textStyle="bold" />
+                android:id="@+id/tv_login_fb"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="@dimen/sp21"
+                android:background="@drawable/custom_buttom_loginfb"
+                android:drawableLeft="@drawable/icons_facebook_48"
+                android:gravity="center_vertical"
+                android:text="@string/login_fb"
+                android:textSize="@dimen/w16"
+                android:textStyle="bold" />
+                <!--<com.facebook.login.widget.LoginButton-->
+                    <!--android:id="@+id/login_button"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_gravity="center_horizontal"-->
+                    <!--android:layout_marginTop="@dimen/sp21"-->
+                    <!--android:layout_marginBottom="30dp" />-->
             </LinearLayout>
 
         </LinearLayout>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/text_dray"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/w150"
+        android:background="@drawable/bg_edittext2"
+        android:padding="@dimen/w16">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_avt"
+            android:scaleType="centerCrop"
+            android:layout_width="@dimen/w50"
+            android:layout_height="@dimen/w50"
+            android:background="@drawable/ic_account_white" />
+
+        <TextView
+            android:textColor="@color/text_white"
+            android:id="@+id/tv_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/iv_avt"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="@dimen/w10"
+            android:layout_toEndOf="@+id/iv_avt"
+            android:text="@string/wellcom"
+            android:textSize="@dimen/w16" />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_margin="@dimen/w5"
+        android:background="@drawable/bg_edittext"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+
+            android:layout_margin="@dimen/w10"
+            android:drawableLeft="@drawable/ic_heart"
+            android:drawablePadding="@dimen/w20"
+
+            android:gravity="center_vertical"
+            android:textSize="@dimen/sp18"
+            android:text="@string/loved"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_gravity="bottom"
+        android:layout_margin="@dimen/w5"
+        android:background="@drawable/bg_edittext"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_your_profile"
+            android:layout_margin="@dimen/w10"
+            android:drawableLeft="@drawable/ic_user"
+            android:drawablePadding="@dimen/w20"
+            android:background="@drawable/custom_textview_click2"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/sp18"
+            android:text="@string/settingprofile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_help"
+            android:layout_margin="@dimen/w10"
+            android:drawableLeft="@drawable/ic_help"
+            android:drawablePadding="@dimen/w20"
+
+            android:gravity="center_vertical"
+            android:textSize="@dimen/sp18"
+            android:text="@string/help"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:background="@drawable/custom_textview_click2"
+            android:id="@+id/tv_logout"
+            android:layout_margin="@dimen/w10"
+            android:drawableLeft="@drawable/ic_exit"
+            android:drawablePadding="@dimen/w20"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/sp18"
+            android:text="@string/logout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</LinearLayout>

@@ -8,14 +8,18 @@
         android:title="@string/home" />
 
     <item
-        android:id="@+id/navigation_house"
+        android:id="@+id/nav_house"
         android:icon="@drawable/ic_home"
         app:showAsAction="withText"
         android:title="@string/house" />
 
     <item
-        android:id="@+id/navigation_furniture"
+        android:id="@+id/nav_furniture"
         app:showAsAction="withText"
         android:icon="@drawable/ic_sofa"
         android:title="@string/furniture" />
+    <item
+        android:icon="@drawable/ic_account_circle_black_24dp"
+        android:id="@+id/nav_profile"
+        android:title="@string/me" />
 </menu>

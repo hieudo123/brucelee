@@ -1,5 +1,7 @@
 <resources>
-    <string name="app_name">Life Style</string>
+    <string name="facebook_app_id">708894422860851</string>
+    <string name="fb_login_protocol_scheme">fb708894422860851</string>
+    <string name="app_name">LIFE STYLE</string>
     <string name="username">Username</string>
     <string name="login">ĐĂNG NHẬP</string>
     <string name="sigin">ĐĂNG KÝ</string>
@@ -11,8 +13,8 @@
     <string name="products">SẢN PHẨM</string>
     <string name="navigation_drawer_open">Open Navigation drawer</string>
     <string name="navigation_drawer_close">Close Navigation drawer</string>
-    <string name="signin_google">Login with Google</string>
-    <string name="login_fb">Login with Facebook</string>
+    <string name="signin_google">Sign in with Google</string>
+    <string name="login_fb">Log in with Facebook</string>
     <string name="home">Trang chủ</string>
     <string name="house">Nhà</string>
     <string name="furniture">Nội thất</string>
@@ -28,5 +30,22 @@
     <string name="address">Địa chỉ</string>
     <string name="profile">Thông tin cá nhân</string>
     <string name="edit">Chỉnh sửa</string>
+    <string name="mostview">Xem nhiều nhất</string>
+    <string name="logout">Đăng xuất</string>
+    <string name="notifi">Thông báo</string>
+    <string name="me">Tôi</string>
+    <string name="loginsuccess">Đăng nhập thành công</string>
+    <string name="loginfail">Đăng nhập thất bại</string>
+    <string name="show">Hiển thị</string>
+    <string name="hide">Ẩn</string>
+    <string name="loved">Đã thích</string>
+    <string name="help">Trung tâm hỗ trợ</string>
+    <string name="settingprofile">Thiết lập tài khoản</string>
+    <string name="wellcom">Chào mừng đến với Life Style !</string>
+    <string name="changepassword">Đổi mật khẩu</string>
+    <string name="new_password">Mật khẩu mới</string>
+    <string name="price">Giá</string>
+    <string name="createdby">Created by</string>
+    <string name="createdat">Created at</string>
 
 </resources>

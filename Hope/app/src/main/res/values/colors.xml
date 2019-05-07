@@ -15,4 +15,5 @@
     <color name="color_homebar">#AED5E4</color>
     <color name="color_bghome">#D9EEF1</color>
     <color name="color_navtext">#D7D6D4</color>
+    <color name="top">#0096CA</color>
 </resources>

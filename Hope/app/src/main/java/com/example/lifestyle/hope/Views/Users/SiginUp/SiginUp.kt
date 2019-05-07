@@ -18,18 +18,7 @@ class SiginUp : BaseActivity(),ViewHandlerSigin,View.OnClickListener{
     override fun getLayoutResourceId(): Int {
         return R.layout.activity_siginup
     }
-
-    override fun onClick(v: View?) {
-        when(v?.id)
-        {
-            R.id.tv_sigin_up ->Sigin(name.text.toString().trim(),
-                    password.text.toString().trim(),
-                    re_password.text.toString().trim(),
-                    phone.text.toString().trim())
-        }
-    }
-
-
+    lateinit var progressBar: ProgressBar
     lateinit var container:LinearLayout
     lateinit var logo:ImageView
     lateinit var sigin: TextView
@@ -39,7 +28,7 @@ class SiginUp : BaseActivity(),ViewHandlerSigin,View.OnClickListener{
     lateinit var re_password:EditText
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        anhXa()
+       init()
         startAnimation()
         val handler = Handler()
         handler.postDelayed({
@@ -50,8 +39,23 @@ class SiginUp : BaseActivity(),ViewHandlerSigin,View.OnClickListener{
         toolbar.setBackgroundResource(R.color.color_siginbar)
         setTitle(R.string.sigin)
         setLeftActionIcon(R.drawable.ic_arrow_back_black_24dp)
+        HideIconRight(true)
     }
-    fun anhXa(){
+
+    override fun onClick(v: View?) {
+        when(v?.id)
+        {
+            R.id.tv_sigin_up -> {
+                progressBar.visibility = View.VISIBLE
+                Sigin(name.text.toString().trim(),
+                        password.text.toString().trim(),
+                        re_password.text.toString().trim(),
+                        phone.text.toString().trim())
+            }
+        }
+    }
+
+    fun init(){
         container = findViewById(R.id.container)
         sigin = findViewById(R.id.tv_sigin_up)
         logo = findViewById(R.id.iv_logo)
@@ -59,24 +63,22 @@ class SiginUp : BaseActivity(),ViewHandlerSigin,View.OnClickListener{
         password = findViewById(R.id.et_password)
         re_password= findViewById(R.id.et_re_password)
         phone = findViewById(R.id.et_phone)
+        progressBar = findViewById(R.id.progressBar)
         sigin.setOnClickListener(this)
     }
-    fun startAnimation()
-    {
+
+    fun startAnimation() {
         var anime = AnimationUtils.loadAnimation(this, R.anim.upto2)
         logo.startAnimation(anime)
-
-
     }
-    fun Sigin(name:String , password:String ,re_password:String , phone:String)
-    {
+
+    fun Sigin(name:String , password:String ,re_password:String , phone:String) {
        if(re_password == password) {
            var preHandlerSigin: PreHandlerSigin
            preHandlerSigin = PreHandlerSigin(this, this)
            preHandlerSigin.Sigin(name, password, phone)
        }
-       else
-       {
+       else {
            Toast.makeText(this,"Mật khẩu xác thực không trùng !",Toast.LENGTH_SHORT).show()
        }
     }
@@ -86,10 +88,16 @@ class SiginUp : BaseActivity(),ViewHandlerSigin,View.OnClickListener{
         phone.text.clear()
         password.text.clear()
         re_password.text.clear()
+        progressBar.visibility = View.GONE
+        onBackPressed()
     }
 
     override fun SiginOnFail(mess: String) {
         Toast.makeText(this,mess,Toast.LENGTH_SHORT).show()
+        progressBar.visibility = View.GONE
+    }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
     }
 }

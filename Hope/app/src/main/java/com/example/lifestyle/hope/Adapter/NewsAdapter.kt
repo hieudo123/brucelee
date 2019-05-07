@@ -7,11 +7,13 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import com.example.lifestyle.hope.Activity.MainActivity
 import com.example.lifestyle.hope.Models.News
 import com.example.lifestyle.hope.R
 import com.example.lifestyle.hope.Views.News.NewsDetailActivity
+import org.w3c.dom.Text
 
 
 class NewsAdapter(var context: Context,var list:ArrayList<String>):RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
@@ -25,6 +27,7 @@ class NewsAdapter(var context: Context,var list:ArrayList<String>):RecyclerView.
     }
 
     override fun onBindViewHolder(holder: ViewHolder, i: Int) {
+        holder.createdBy.setText(list[i])
         holder.itemView.setOnClickListener {
             Toast.makeText(context,list.get(i),Toast.LENGTH_SHORT).show()
             var intent = Intent(context, NewsDetailActivity::class.java)
@@ -33,6 +36,6 @@ class NewsAdapter(var context: Context,var list:ArrayList<String>):RecyclerView.
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
+        var createdBy : TextView = itemView.findViewById(R.id.tv_createdby)
     }
 }

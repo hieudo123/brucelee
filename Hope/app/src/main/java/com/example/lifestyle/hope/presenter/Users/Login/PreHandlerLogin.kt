@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
+import android.preference.PreferenceManager
 import android.util.Log
 import com.android.volley.Request
 import com.android.volley.RequestQueue
@@ -14,13 +15,15 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.lifestyle.hope.Models.Users
 import com.example.lifestyle.hope.Views.Users.Login.ViewHandlerLogin
+import com.example.lifestyle.hope.utils.SharePref
+import com.google.gson.Gson
 import org.json.JSONObject
 
 class PreHandlerLogin(var context: Context, var user: Users?, var v: ViewHandlerLogin) : PreImpLogin {
-
+    lateinit var sharePref:SharePref
     override fun getLogin(phone: String, password: String) {
         val requestQueue: RequestQueue = Volley.newRequestQueue(context)
-        var url: String = "http://192.168.10.164/hope/Login.php"
+        var url: String = "https://androidwebsv.000webhostapp.com/hope/Login.php"
         val stringRequest = object : StringRequest(Request.Method.POST, url,
                 Response.Listener<String> { response ->
                     Log.e("GetString", response.toString())
@@ -37,6 +40,8 @@ class PreHandlerLogin(var context: Context, var user: Users?, var v: ViewHandler
                                 u.getString("Image"),
                                 u.getInt("Status"))
                         Log.e("Object", user!!.username)
+                        sharePref = SharePref(context)
+                        sharePref.putUser(user)
                         v.LoginOnSuccess(mess)
                     } else {
                         var mess = objects.getString("Message")

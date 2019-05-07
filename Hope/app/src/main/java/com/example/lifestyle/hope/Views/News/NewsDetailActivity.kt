@@ -17,6 +17,5 @@ class  NewsDetailActivity:BaseActivity()
         super.onCreate(savedInstanceState)
         var toolbar:android.support.v7.widget.Toolbar = findViewById(R.id.tb_toolbar)as Toolbar
         setTitle("Tin tức")
-        tvtitle.textSize =18f
     }
 }

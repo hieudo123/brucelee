@@ -25,10 +25,8 @@ class CreateNewsActivity: BaseActivity(),View.OnClickListener {
     }
     lateinit var createdTime:TextView
     lateinit var image:ImageView
-    lateinit var image1:ImageView
-    lateinit var image2:ImageView
-    lateinit var pickImage:FloatingActionButton
     lateinit var createdBy:TextView
+    lateinit var share:TextView
     var position:Int =0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,45 +37,22 @@ class CreateNewsActivity: BaseActivity(),View.OnClickListener {
     {
         createdTime = findViewById(R.id.tv_createat)
         createdBy = findViewById(R.id.tv_createdby)
-        pickImage = findViewById(R.id.fbtn_addimage)
+        share = findViewById(R.id.tv_sharenews)
         image = findViewById(R.id.iv_news_image)
-        image1 = findViewById(R.id.iv_news_image1)
-        image2 = findViewById(R.id.iv_news_image2)
+
 
         var date = Date()
         var s:CharSequence = android.text.format.DateFormat.format("HH:mm:ss dd/MM/yyyy",date.time)
-        createdTime.setText("Created at : "+ s)
+        createdTime.setText(s.toString())
 
-        pickImage.setOnClickListener(this)
+        share.setOnClickListener(this)
         image.setOnClickListener(this)
-        image1.setOnClickListener(this)
-        image2.setOnClickListener(this)
 
     }
     override fun onClick(v: View?) {
         when(v?.id)
         {
-            R.id.fbtn_addimage ->{
-                var intent = Intent(Intent.ACTION_PICK)
-                intent.setType("image/*")
-                startActivityForResult(intent,1)
-            }
             R.id.iv_news_image->{
-                position = 0;
-                var intent = Intent(Intent.ACTION_PICK)
-                intent.setType("image/*")
-                startActivityForResult(intent,1)
-
-            }
-            R.id.iv_news_image1->{
-                position = 1;
-                var intent = Intent(Intent.ACTION_PICK)
-                intent.setType("image/*")
-                startActivityForResult(intent,1)
-
-            }
-            R.id.iv_news_image2->{
-                position = 2;
                 var intent = Intent(Intent.ACTION_PICK)
                 intent.setType("image/*")
                 startActivityForResult(intent,1)
@@ -92,13 +67,7 @@ class CreateNewsActivity: BaseActivity(),View.OnClickListener {
             var uri:Uri =data.data
             var inputStream:InputStream = getContentResolver().openInputStream(uri)
             var bitmap:Bitmap =BitmapFactory.decodeStream(inputStream)
-
-            when(position)
-            {
-                0->image.setImageBitmap(bitmap)
-                1->image1.setImageBitmap(bitmap)
-                2->image2.setImageBitmap(bitmap)
-            }
+            image.setImageBitmap(bitmap)
 
         }
 

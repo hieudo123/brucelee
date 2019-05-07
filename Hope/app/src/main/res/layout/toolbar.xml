@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.Toolbar
+    android:padding="@dimen/w5"
+    android:gravity="center"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/tb_toolbar"
@@ -8,12 +10,34 @@
     android:layout_height="?attr/actionBarSize"
     android:minHeight="?attr/actionBarSize"
     android:background="@color/bg_sigin">
-    <TextView
-        android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/text_white"
-        android:textSize="@dimen/sp18"
-        />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:textStyle="bold"
+            android:layout_centerVertical="true"
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_white"
+            android:textSize="@dimen/sp18"
+            />
+        <ImageView
+            android:id="@+id/iv_notification"
+            android:layout_width="@dimen/w30"
+            android:layout_height="@dimen/w30"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/ic_notification" />
 
+        <TextView
+            android:id="@+id/tv_counter"
+            android:gravity="center"
+            android:textColor="@color/text_white"
+            android:layout_width="@dimen/w15"
+            android:layout_height="@dimen/w15"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="0dp"
+            android:background="@drawable/bg_round" />
+    </RelativeLayout>
 </android.support.v7.widget.Toolbar>

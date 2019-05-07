@@ -14,7 +14,6 @@ public class PreHandlerSigin(var context: Context,var v:ViewHandlerSigin):PreImp
     override fun Sigin(name: String, password: String, phone: String) {
         val requestQueue:RequestQueue= Volley.newRequestQueue(context)
         val url:String ="https://androidwebsv.000webhostapp.com/hope/Siginup.php"
-
         val stringRequest = object : StringRequest(Request.Method.POST,url,
                 Response.Listener {response ->
                     Log.e("GetString", response.toString())
