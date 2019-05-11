@@ -55,7 +55,6 @@ class SiginUp : BaseActivity(),ViewHandlerSigin,View.OnClickListener{
     fun settingToolBar(){
         var toolbar:android.support.v7.widget.Toolbar = findViewById(R.id.tb_toolbar)as Toolbar
         setTitle(R.string.sigin)
-        setLeftActionIcon(R.drawable.ic_arrow_back_black_24dp)
         HideIconRight(true)
     }
 
@@ -88,8 +87,10 @@ class SiginUp : BaseActivity(),ViewHandlerSigin,View.OnClickListener{
                             re_password.text.toString().trim(),
                             phone.text.toString().trim())
                 }
-                else
+                else {
                     emptyText.visibility = View.VISIBLE
+                }
+
             }
             R.id.tv_accept->{
                 if(phone.text.isNotEmpty()){
@@ -199,6 +200,7 @@ class SiginUp : BaseActivity(),ViewHandlerSigin,View.OnClickListener{
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
                         progressBar.visibility = View.GONE
+                        container.visibility = View.VISIBLE
                         Log.d("AAA", "signInWithCredential:success")
                     } else {
                         Log.w("BBB", "signInWithCredential:failure", task.exception)

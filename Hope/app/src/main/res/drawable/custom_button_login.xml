@@ -7,7 +7,7 @@
             android:shape="rectangle">
 
             <corners android:radius="5dp"/>
-            <solid android:color="#84a9bb" />
+            <solid android:color="@color/login_button" />
         </shape>
     </item>
     <item android:state_enabled="true"
@@ -17,7 +17,7 @@
             android:shape="rectangle">
 
             <corners android:radius="5dp"/>
-            <solid android:color="#abc8d6" />
+            <solid android:color="@color/bg_sigin" />
         </shape>
     </item>
 </selector>

@@ -92,7 +92,7 @@ class YourPageFragment : BaseFragment(),View.OnClickListener{
             user = sharePref.user
             username.setText(user.username)
             if(user.image != ""){
-                Picasso.get().load(user.image).into(avatar)
+                Picasso.get().load(user.image).error(R.drawable.ic_account_circle_black_24dp).into(avatar)
             }
 
         }

@@ -12,18 +12,16 @@
         android:layout_marginRight="@dimen/w10"
         android:src="@drawable/ic_addnews"
         android:id="@+id/fbtn_addnews"
-        android:backgroundTint="@color/text_white"
+        android:backgroundTint="@color/color_homebar"
         app:layout_anchorGravity="bottom|right|end"/>
     <FrameLayout
         android:orientation="vertical"
-        android:background="@color/text_white"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/rv_news"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/text_dray">
+            android:layout_height="match_parent">
         </android.support.v7.widget.RecyclerView>
         <ProgressBar
             style="?android:attr/progressBarStyle"

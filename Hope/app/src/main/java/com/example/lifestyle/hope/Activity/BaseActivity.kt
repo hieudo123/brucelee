@@ -37,7 +37,7 @@ abstract class BaseActivity : AppCompatActivity() {
     lateinit var counter:TextView
     lateinit var toolbar: Toolbar
     lateinit var tvtitle: TextView
-
+    val fragmentManager: FragmentManager = supportFragmentManager
     var drawerLayout: DrawerLayout? = null
     var mSocket: Socket = IO.socket("https://pure-shore-49093.herokuapp.com")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -133,14 +133,12 @@ abstract class BaseActivity : AppCompatActivity() {
          super.setTitle(cs)
      }
      fun addFragment(container:Int, fragment: Fragment, isBackStack:Boolean) {
-         val fragmentManager: FragmentManager = supportFragmentManager
          val transaction: FragmentTransaction = fragmentManager.beginTransaction()
          transaction.add(container,fragment)
          if(isBackStack) transaction.addToBackStack(null)
          transaction.commit()
      }
      fun replaceFrament(container: Int, fragment: Fragment, isBackStack: Boolean) {
-         val fragmentManager: FragmentManager = supportFragmentManager
          val transaction: FragmentTransaction = fragmentManager.beginTransaction()
          transaction.replace(container,fragment)
          if(isBackStack)

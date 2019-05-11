@@ -164,12 +164,13 @@ class LoginActivity : AppCompatActivity(), ViewHandlerLogin, View.OnClickListene
             Log.e("DSN",acct.displayName)
 
             if(account != null){
+                Log.e("HHH",acct.id)
                 user = Users(1111, acct.displayName!!,
-                        "",
-                        "",
-                        "",
+                        " ",
+                        " ",
+                        " ",
                         acct.email!!,
-                        acct.photoUrl.toString(),"",1)
+                        acct.photoUrl.toString()," ",1)
                 sharePref.putUser(user)
                 LoginOnSuccess(getString(R.string.loginsuccess))
             }

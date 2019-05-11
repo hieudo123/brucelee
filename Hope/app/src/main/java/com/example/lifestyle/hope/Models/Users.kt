@@ -3,27 +3,37 @@ package com.example.lifestyle.hope.Models
 import android.os.Parcel
 import android.os.Parcelable
 import android.provider.ContactsContract
+import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 class Users(
-        @SerializedName("id")
+        @Expose
+        @SerializedName("Id")
         var id :Int ,
-        @SerializedName("username")
+        @Expose
+        @SerializedName("Username")
         var username: String,
-        @SerializedName("password")
+        @Expose
+        @SerializedName("Password")
         var password:String ,
-        @SerializedName("phone")
+        @Expose
+        @SerializedName("Phone")
         var phone_number:String,
-        @SerializedName("address")
+        @Expose
+        @SerializedName("Address")
         var  address:String,
-        @SerializedName("email")
+        @Expose
+        @SerializedName("Email")
         var email: String,
-        @SerializedName("image")
+        @Expose
+        @SerializedName("Image")
         var image :String,
-        @SerializedName("gender")
+        @Expose
+        @SerializedName("Gender")
         var gender :String,
-        @SerializedName("status")
+        @Expose
+        @SerializedName("Status")
         var status :Int) : Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readInt(),

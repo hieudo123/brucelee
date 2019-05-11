@@ -25,10 +25,11 @@
         android:gravity="center_vertical|center_horizontal">
 
         <ImageView
+            android:backgroundTint="@color/color_bghome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/w5"
-            android:src="@drawable/logo_1" />
+            android:background="@drawable/logo_1" />
     </LinearLayout>
 
     <RelativeLayout
@@ -113,7 +114,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/w5"
                     android:layout_weight="1"
-                    android:background="@drawable/custom_button_login2"
+                    android:background="@drawable/custom_button_login"
                     android:text="@string/login"
                     android:textColor="@color/text_white"
                     android:textSize="@dimen/w16" />

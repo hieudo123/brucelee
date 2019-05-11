@@ -33,7 +33,7 @@
             android:layout_marginEnd="8dp"
             android:padding="@dimen/w5"
             android:scaleType="centerCrop"
-            android:src="@color/color_homebar"
+            android:src="@color/color_bghome"
             app:layout_constraintBottom_toBottomOf="@+id/imageView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -128,12 +128,12 @@
             android:layout_marginTop="@dimen/w16"
             android:layout_marginEnd="@dimen/w16"
             android:text="@string/save"
-            android:background="@drawable/custom_button_login2"
+            android:background="@drawable/custom_button_login"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_address_pr" />
 
         <Button
-            android:background="@drawable/custom_button_login2"
+            android:background="@drawable/custom_button_login"
             android:id="@+id/tv_changepw"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -212,6 +212,7 @@
             app:layout_constraintTop_toBottomOf="@+id/imageView"
             app:srcCompat="@drawable/ic_pick_photo" />
         <ImageView
+            android:visibility="gone"
             android:id="@+id/iv_save_photo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -221,6 +222,17 @@
             app:layout_constraintStart_toStartOf="@+id/iv_edit_picture"
             app:layout_constraintTop_toBottomOf="@+id/iv_edit_picture"
             app:srcCompat="@drawable/ic_check" />
+
+        <ProgressBar
+            android:visibility="gone"
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

@@ -5,16 +5,18 @@
     <color name="colorAccent">#D81B60</color>
     <color name="loginArea">#7fD7D6D4</color>
     <color name="text_white">#ffffff</color>
-    <color name="login_button">#84A9BB</color>
     <color name="sigin_button">#BB83A9</color>
     <color name="bg_sigin">#44AFFF</color>
     <color name="text_shadow">#b1b1b1</color>
     <color name="text_dray">#f7f6f6</color>
     <color name="line">#44AFFF</color>
     <color name="color_siginbar">#496193</color>
+    <color name="top">#0096CA</color>
+    <color name="colorerror">#ff0000</color>
+    <!--MainColor-->
+    <color name="login_button">#84A9BB</color>
     <color name="color_homebar">#AED5E4</color>
     <color name="color_bghome">#D9EEF1</color>
     <color name="color_navtext">#D7D6D4</color>
-    <color name="top">#0096CA</color>
-    <color name="colorerror">#ff0000</color>
+    <color name="color_theme">#4267B2</color>
 </resources>

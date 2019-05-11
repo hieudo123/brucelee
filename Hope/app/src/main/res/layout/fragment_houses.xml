@@ -31,7 +31,6 @@
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:clipToPadding="true"
-        android:background="@color/text_white"
         app:layout_anchorGravity="bottom"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -41,8 +40,6 @@
             android:layout_height="@dimen/w35"/>
         <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/rv_houses"
-            android:scrollbars="vertical"
-            android:scrollbarSize="@dimen/w5"
             android:scrollbarThumbVertical="@color/bg_sigin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
