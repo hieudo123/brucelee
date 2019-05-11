@@ -10,17 +10,6 @@
     android:background="@drawable/bglogin_1"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="3"
-        android:gravity="center_vertical|center_horizontal">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/w5"
-            android:src="@drawable/logo_1" />
-    </LinearLayout>
     <ProgressBar
         android:visibility="gone"
         android:layout_gravity="center"
@@ -28,6 +17,19 @@
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="3"
+        android:gravity="center_vertical|center_horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/w5"
+            android:src="@drawable/logo_1" />
+    </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/bg_bottom"
@@ -95,18 +97,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/btn_login"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/w5"
-                    android:layout_weight="1"
-                    android:background="@drawable/custom_button_login"
-                    android:text="@string/login"
-                    android:textColor="@color/text_white"
-                    android:textSize="@dimen/w16" />
-
                 <Button
                     android:id="@+id/btn_sigin"
                     android:layout_width="match_parent"
@@ -115,6 +105,16 @@
                     android:layout_weight="1"
                     android:background="@drawable/custom_button_sigin"
                     android:text="@string/sigin"
+                    android:textColor="@color/text_white"
+                    android:textSize="@dimen/w16" />
+                <Button
+                    android:id="@+id/btn_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/w5"
+                    android:layout_weight="1"
+                    android:background="@drawable/custom_button_login2"
+                    android:text="@string/login"
                     android:textColor="@color/text_white"
                     android:textSize="@dimen/w16" />
             </LinearLayout>

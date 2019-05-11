@@ -19,21 +19,18 @@
         android:background="@color/text_white"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/rv_news"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/text_dray">
+        </android.support.v7.widget.RecyclerView>
         <ProgressBar
             style="?android:attr/progressBarStyle"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:id="@+id/progress"
             android:layout_height="@dimen/w35"/>
-        <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/rv_news"
-            android:scrollbars="vertical"
-            android:scrollbarSize="@dimen/w5"
-            android:scrollbarThumbVertical="@color/bg_sigin"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/loginArea">
-        </android.support.v7.widget.RecyclerView>
         <LinearLayout
             android:layout_gravity="bottom"
             android:layout_width="match_parent"

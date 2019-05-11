@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+android:background="@drawable/bg_edittext4"
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:orientation="vertical"
+android:padding="@dimen/w10">
+<TextView
+    android:padding="@dimen/w10"
+    android:textStyle="bold"
+    android:textSize="@dimen/sp18"
+    android:text="@string/sms_code"
+    android:layout_width="match_parent"
+    android:textColor="@color/bg_sigin"
+    android:gravity="center"
+    android:layout_height="wrap_content"/>
+<EditText
+    android:padding="@dimen/w10"
+    android:background="@drawable/bg_edittext"
+    android:hint="@string/sms_code"
+    android:textSize="@dimen/w16"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:inputType="text" />
+<LinearLayout
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:gravity="center"
+        android:layout_margin="@dimen/w10"
+        android:textStyle="bold"
+        android:background="@drawable/custom_button_login2"
+        android:textColor="@color/text_white"
+        android:padding="@dimen/w10"
+        android:textSize="@dimen/w16"
+        android:text="@string/accept"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+    <TextView
+        android:gravity="center"
+        android:layout_weight="1"
+        android:layout_margin="@dimen/w10"
+        android:textStyle="bold"
+        android:background="@drawable/custom_button_login2"
+        android:textColor="@color/text_white"
+        android:layout_gravity="center"
+        android:padding="@dimen/w10"
+        android:textSize="@dimen/w16"
+        android:text="@string/re_send"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+</LinearLayout>
+</LinearLayout>

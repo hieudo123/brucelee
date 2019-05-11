@@ -23,14 +23,12 @@ class FacebookLogin( var v: ViewHandlerLogin,var context: Context , var callback
 
             override fun onSuccess(result: LoginResult?) {
                 v.LoginOnSuccess(context.getString(R.string.loginsuccess))
-                Toast.makeText(context, "isFacebookLogin",Toast.LENGTH_SHORT).show()
                 resultLoginFB()
             }
             override fun onCancel() {
-                Toast.makeText(context, "isCancleFacebookLogin",Toast.LENGTH_SHORT).show()
+
             }
             override fun onError(error: FacebookException?) {
-                Toast.makeText(context, "isNotFacebookLogin",Toast.LENGTH_SHORT).show()
                 v.LoginOnFail(context.getString(R.string.loginfail))
             }
         })

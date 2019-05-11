@@ -5,5 +5,5 @@
 
     </solid>
     <stroke
-        android:color="@color/text_dray" android:width="@dimen/w2"></stroke>
+        android:color="@color/text_shadow" android:width="0.8dp"></stroke>
 </shape>

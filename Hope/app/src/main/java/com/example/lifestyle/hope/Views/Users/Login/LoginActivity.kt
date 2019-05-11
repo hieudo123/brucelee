@@ -169,7 +169,7 @@ class LoginActivity : AppCompatActivity(), ViewHandlerLogin, View.OnClickListene
                         "",
                         "",
                         acct.email!!,
-                        acct.photoUrl.toString(),1)
+                        acct.photoUrl.toString(),"",1)
                 sharePref.putUser(user)
                 LoginOnSuccess(getString(R.string.loginsuccess))
             }

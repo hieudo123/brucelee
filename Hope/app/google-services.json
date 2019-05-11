@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "67303629505",
+    "firebase_url": "https://hope-1557133861463.firebaseio.com",
+    "project_id": "hope-1557133861463",
+    "storage_bucket": "hope-1557133861463.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:67303629505:android:279324163a1678f6",
+        "android_client_info": {
+          "package_name": "com.example.lifestyle.hope"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "67303629505-653t1lasd8l57f29kaoaj9hggf6tcj10.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.lifestyle.hope",
+            "certificate_hash": "f1bd23e8ed5ba2d89a1967c1af4f0d0327644184"
+          }
+        },
+        {
+          "client_id": "67303629505-d8dpjsmif76qfiukb9m14gcaev7etgeg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtQy0GfTFhOunXFBoKuuBj558Sxvu6mnw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "67303629505-d8dpjsmif76qfiukb9m14gcaev7etgeg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

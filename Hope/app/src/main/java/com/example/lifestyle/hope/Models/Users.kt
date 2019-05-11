@@ -13,7 +13,7 @@ class Users(
         var username: String,
         @SerializedName("password")
         var password:String ,
-        @SerializedName("phone_number")
+        @SerializedName("phone")
         var phone_number:String,
         @SerializedName("address")
         var  address:String,
@@ -21,6 +21,8 @@ class Users(
         var email: String,
         @SerializedName("image")
         var image :String,
+        @SerializedName("gender")
+        var gender :String,
         @SerializedName("status")
         var status :Int) : Parcelable {
     constructor(parcel: Parcel) : this(
@@ -31,22 +33,16 @@ class Users(
             parcel.readString(),
             parcel.readString(),
             parcel.readString(),
+            parcel.readString(),
             parcel.readInt()) {
     }
 
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeInt(id)
-        parcel.writeString(username)
-        parcel.writeString(password)
-        parcel.writeString(phone_number)
-        parcel.writeString(address)
-        parcel.writeString(email)
-        parcel.writeString(image)
-        parcel.writeInt(status)
+    override fun writeToParcel(dest: Parcel?, flags: Int) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun describeContents(): Int {
-        return 0
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     companion object CREATOR : Parcelable.Creator<Users> {
@@ -58,6 +54,4 @@ class Users(
             return arrayOfNulls(size)
         }
     }
-
-
 }

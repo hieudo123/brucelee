@@ -9,50 +9,90 @@ import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import com.example.lifestyle.hope.Models.MyFirebaseMessagingService
 import com.example.lifestyle.hope.R
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.messaging.FirebaseMessaging
+import com.google.firebase.messaging.FirebaseMessagingService
+import com.google.firebase.messaging.RemoteMessage
 
 import io.socket.client.IO
 import io.socket.client.Socket
 
 
 abstract class BaseActivity : AppCompatActivity() {
-
     lateinit var notifi:ImageView
     lateinit var counter:TextView
     lateinit var toolbar: Toolbar
     lateinit var tvtitle: TextView
+
     var drawerLayout: DrawerLayout? = null
-    lateinit var mSocket: Socket
+    var mSocket: Socket = IO.socket("https://pure-shore-49093.herokuapp.com")
     override fun onCreate(savedInstanceState: Bundle?) {
-         setContentView(getLayoutResourceId())
-         super.onCreate(savedInstanceState)
-         toolbar =findViewById(R.id.tb_toolbar)as Toolbar
-         tvtitle = findViewById(R.id.tv_title)
-         notifi = findViewById(R.id.iv_notification)
-         counter = findViewById(R.id.tv_counter)
-         mSocket = IO.socket("https://pure-shore-49093.herokuapp.com")
-         mSocket.connect()
-            if(toolbar!= null){
-                toolbar
-                setSupportActionBar(toolbar)
-                val actionBar = supportActionBar
-                actionBar?.setDisplayShowTitleEnabled(false)
+        setContentView(getLayoutResourceId())
+        super.onCreate(savedInstanceState)
+        mSocket.connect()
+        initComponent()
+        setActionBar()
+        FirebaseInstanceId.getInstance().instanceId
+                .addOnCompleteListener(OnCompleteListener { task ->
+                    if (!task.isSuccessful) {
+                        Log.w("TAA", "getInstanceId failed", task.exception)
+                        return@OnCompleteListener
+                    }
+                    // Get new Instance ID token
+                    val token = task.result?.token
 
-                if(actionBar!=null)
-                    actionBar?.setDisplayShowTitleEnabled(false)
-
-                toolbar.setNavigationIcon(R.drawable.ic_arrow_back)
-                toolbar.setNavigationOnClickListener {
-                    onLeftActionClicked()
-
+                    // Log and toast
+                    val msg =token
+                    Log.d("TTT", msg)
+                })
+        FirebaseMessaging.getInstance().subscribeToTopic("weather")
+                .addOnCompleteListener { task ->
+                    var msg = getString(R.string.msg_subscribed)
+                    if (!task.isSuccessful) {
+                        msg = getString(R.string.msg_subscribe_failed)
+                    }
+                    Log.d("OOP", msg)
                 }
-            }
+        FirebaseMessaging.getInstance().isAutoInitEnabled = true
 
      }
+    fun initComponent(){
+        toolbar =findViewById(R.id.tb_toolbar)as Toolbar
+        tvtitle = findViewById(R.id.tv_title)
+        notifi = findViewById(R.id.iv_notification)
+        counter = findViewById(R.id.tv_counter)
+    }
+    open fun setActionBar(){
+        if(toolbar!= null){
+            toolbar
+            setSupportActionBar(toolbar)
+            val actionBar = supportActionBar
+            actionBar?.setDisplayShowTitleEnabled(false)
+
+            if(actionBar!=null)
+                actionBar?.setDisplayShowTitleEnabled(false)
+
+            toolbar.setNavigationIcon(R.drawable.ic_arrow_back)
+            toolbar.setNavigationOnClickListener {
+                onLeftActionClicked()
+
+            }
+        }
+    }
      fun hideLeftActionIcon(hide: Boolean){
          if (hide){
              toolbar.setNavigationIcon(null)

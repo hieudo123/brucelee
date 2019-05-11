@@ -31,9 +31,10 @@ class NewsFragment:BaseFragment(),View.OnClickListener {
         Toast.makeText(context,"News",Toast.LENGTH_SHORT).show()
         recyclerView = view.findViewById(R.id.rv_news)
         init(view)
-        loadInProgress()
+
         var handler = Handler()
         var runnable = Runnable {
+            loadInProgress()
             loadAllNews()
         }; handler.postDelayed(runnable, 1000)
         return view

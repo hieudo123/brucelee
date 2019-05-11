@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import com.example.lifestyle.hope.Activity.BaseActivity
+import com.example.lifestyle.hope.Fragment.EditProfileFragment
 import com.example.lifestyle.hope.Fragment.ShowProfileFragment
 import com.example.lifestyle.hope.R
 
@@ -14,7 +15,7 @@ class ProfileActivity:BaseActivity(),View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTitle(R.string.profile)
-        var fragment:ShowProfileFragment = ShowProfileFragment()
+        var fragment:EditProfileFragment = EditProfileFragment()
         addFragment(R.id.fr_profile_box,fragment,false)
 
         anhXa()

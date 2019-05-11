@@ -47,5 +47,14 @@
     <string name="price">Giá</string>
     <string name="createdby">Created by</string>
     <string name="createdat">Created at</string>
-
+    <string name="writecomment">Viết bình luận ...</string>
+    <string name="empty">Chưa nhập đủ thông tin</string>
+    <string name="accept">Xác nhận</string>
+    <string name="re_send">Gửi lại</string>
+    <string name="sms_code">Mã xác nhận</string>
+    <string name="check_in">Kiểm tra</string>
+    <string name="default_notification_channel_id">com.example.lifestyle.hope</string>
+    <string name="msg_subscribed">connected</string>
+    <string name="msg_subscribe_failed">Fail Connect</string>
+    <string name="save">Lưu</string>
 </resources>
