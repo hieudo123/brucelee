@@ -6,10 +6,12 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.support.annotation.NonNull
+import android.support.v4.app.FragmentActivity
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.ShareActionProvider
 import android.widget.TextView
 import android.widget.Toast
@@ -24,6 +26,12 @@ import com.github.ybq.android.spinkit.style.Circle
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.gson.Gson
@@ -32,13 +40,24 @@ import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 import org.json.JSONObject
 
-class YourPageFragment : BaseFragment(),View.OnClickListener{
+class YourPageFragment : BaseFragment(),View.OnClickListener,OnMapReadyCallback {
+    override fun onMapReady(p0: GoogleMap?) {
+        mMap = p0!!
+        val sydney = LatLng(-34.0, 151.0)
+        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney,15f))
+        mMap.uiSettings.isZoomControlsEnabled = true
+    }
+
+    lateinit var mapBox : FrameLayout
     lateinit var avatar : CircleImageView
     lateinit var user : Users
     lateinit var logout:TextView
     lateinit var showProfile:TextView
     lateinit var username:TextView
+    lateinit var mMap : GoogleMap
     var userid : String = ""
+    var mapFragment = ShowProfileFragment()
     lateinit var sharePref : SharePref
     lateinit var mGoogleSignInClient : GoogleSignInClient
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -46,6 +65,9 @@ class YourPageFragment : BaseFragment(),View.OnClickListener{
         sharePref = SharePref(context)
         init(view)
         configureGoogle()
+        val mapFragment: SupportMapFragment = SupportMapFragment.newInstance()
+        childFragmentManager.beginTransaction().replace(R.id.ll_mapBox,mapFragment).commit()
+        mapFragment.getMapAsync(this)
         return view
     }
     fun configureGoogle(){
@@ -59,12 +81,10 @@ class YourPageFragment : BaseFragment(),View.OnClickListener{
         showProfile = v.findViewById(R.id.tv_your_profile)
         username = v.findViewById(R.id.tv_username)
         avatar = v.findViewById(R.id.iv_avt)
+        mapBox = v.findViewById(R.id.ll_mapBox)
 
         showProfile.setOnClickListener(this)
         logout.setOnClickListener(this)
-
-
-
         userid = sharePref.getString("userid","")
         if(userid != null){
             Log.e("AAA",userid.replace(" ",""))

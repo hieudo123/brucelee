@@ -29,6 +29,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.dynamic.SupportFragmentWrapper
 import com.google.gson.Gson
 import org.json.JSONObject
 import java.util.*
@@ -56,7 +57,6 @@ class LoginActivity : AppCompatActivity(), ViewHandlerLogin, View.OnClickListene
         super.onCreate(savedInstanceState)
         sharePref = SharePref(this)
         init()
-
         FacebookSdk.sdkInitialize(this)
         callbackManager = CallbackManager.Factory.create()
         faceBookLogin = FacebookLogin(this,this , callbackManager)
@@ -166,11 +166,11 @@ class LoginActivity : AppCompatActivity(), ViewHandlerLogin, View.OnClickListene
             if(account != null){
                 Log.e("HHH",acct.id)
                 user = Users(1111, acct.displayName!!,
-                        " ",
-                        " ",
-                        " ",
+                        "",
+                        "",
+                        "",
                         acct.email!!,
-                        acct.photoUrl.toString()," ",1)
+                        acct.photoUrl.toString(),"",1)
                 sharePref.putUser(user)
                 LoginOnSuccess(getString(R.string.loginsuccess))
             }

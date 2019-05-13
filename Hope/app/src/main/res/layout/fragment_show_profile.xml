@@ -1,125 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <ImageView
-        android:id="@+id/imageView"
+    <fragment
         android:layout_width="match_parent"
-        android:layout_height="@dimen/w200"
-        android:scaleType="centerCrop"
-        android:src="@drawable/bg_edittext2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tb_toolbar" />
-
-    <com.facebook.login.widget.ProfilePictureView
-        android:id="@+id/iv_avartar"
-        android:layout_width="@dimen/w100"
-        android:layout_height="@dimen/w100"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.083"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_username"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Đỗ Minh Hiếu"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/iv_avartar"
-        app:layout_constraintHorizontal_bias="0.076"
-        app:layout_constraintStart_toStartOf="@+id/iv_avartar"
-        app:layout_constraintTop_toBottomOf="@+id/iv_avartar" />
-
-    <TextView
-        android:id="@+id/tv_email"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
-        android:drawableLeft="@drawable/ic_email_black_24dp"
-        android:drawablePadding="@dimen/w35"
-
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="@dimen/w16"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.05"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_username" />
-
-    <TextView
-        android:id="@+id/tv_phone"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
-        android:drawableLeft="@drawable/ic_phone_black_24dp"
-        android:drawablePadding="@dimen/w35"
-
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="@dimen/w16"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_email" />
-
-    <TextView
-        android:id="@+id/tv_gioitinh"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
-        android:drawableLeft="@drawable/ic_account_circle_black_24dp"
-        android:drawablePadding="@dimen/w35"
-
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="@dimen/w16"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_phone" />
-
-    <TextView
-        android:id="@+id/tv_address"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
-        android:drawableLeft="@drawable/ic_location"
-        android:drawablePadding="@dimen/w35"
-
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="@dimen/w16"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_gioitinh" />
-
-    <TextView
-        android:background="@drawable/custom_textview_click"
-        android:id="@+id/tv_edit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
-        android:layout_marginEnd="16dp"
-        android:drawableLeft="@drawable/ic_edit_black_24dp"
-        android:drawablePadding="@dimen/w5"
-        android:text="@string/edit"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="@dimen/w16"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
-</android.support.constraint.ConstraintLayout>
+        android:layout_height="match_parent"
+        android:id="@+id/map"
+        tools:context=".MapsActivity"
+        android:name="com.google.android.gms.maps.SupportMapFragment" />
+</LinearLayout>

@@ -32,6 +32,8 @@ import com.squareup.picasso.Picasso
 import java.io.ByteArrayOutputStream
 import java.util.*
 import com.github.ybq.android.spinkit.style.Circle
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
 
 
 class EditProfileFragment:BaseFragment(),View.OnClickListener,ViewHandlerUpdateProfile {
@@ -106,6 +108,7 @@ class EditProfileFragment:BaseFragment(),View.OnClickListener,ViewHandlerUpdateP
 
            }
            R.id.iv_save_photo->{
+
                 upLoadImage()
            }
            R.id.btn_save->{
@@ -162,7 +165,6 @@ class EditProfileFragment:BaseFragment(),View.OnClickListener,ViewHandlerUpdateP
             phonNumber.setText(user.phone_number)
             gender.setText(user.gender)
             if(user.image != ""){
-                imageUrl = user.image
                 Picasso.get().load(user.image).error(R.drawable.ic_account_circle_black_24dp).into(avatar)
             }
         }
@@ -177,7 +179,7 @@ class EditProfileFragment:BaseFragment(),View.OnClickListener,ViewHandlerUpdateP
             isEmptyForm.visibility = View.VISIBLE
         }
         else{
-            getData()
+            setData()
             updateProfile()
         }
 
@@ -201,7 +203,7 @@ class EditProfileFragment:BaseFragment(),View.OnClickListener,ViewHandlerUpdateP
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos)
         val data = baos.toByteArray()
         val calendar : Calendar = Calendar.getInstance()
-        val mountainsRef = storageRef.child("Image"+user.id+ ".png")
+        val mountainsRef = storageRef.child("UserPicture/Image"+user.id+ ".png")
         var uploadTask = mountainsRef.putBytes(data)
         uploadTask.addOnFailureListener {
             updaterOnFail()
@@ -219,8 +221,9 @@ class EditProfileFragment:BaseFragment(),View.OnClickListener,ViewHandlerUpdateP
                     val downloadUri = task.result
                     Log.e("LLL",downloadUri.toString())
                     imageUrl = downloadUri.toString()
+                    progressBar.visibility = View.GONE
                     savePhoto.visibility = View.GONE
-                    updateOnSuccess()
+
                 } else {
 
                 }
