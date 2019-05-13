@@ -13,7 +13,7 @@
         android:layout_above="@+id/bottom_nav"
         android:layout_below="@+id/tb_toolbar"
         android:layout_alignParentStart="true"
-        android:background="@color/color_navtext"></FrameLayout>
+        android:background="@color/text_dray"></FrameLayout>
     <android.support.design.widget.BottomNavigationView
         android:layout_alignParentBottom="true"
         android:background="@color/text_white"

@@ -8,6 +8,7 @@ import com.example.lifestyle.hope.respone.resUser
 import com.example.lifestyle.hope.retrofit.ApiService
 import com.example.lifestyle.hope.retrofit.Config
 import com.example.lifestyle.hope.retrofit.RetrofitClient
+import com.example.lifestyle.hope.utils.SharePref
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -34,6 +35,9 @@ class PreHandlerUpdateProfile(var user :Users, var context: Context, var v : Vie
                 if (jsonRespone.data != null){
                     user = jsonRespone.data
                     Log.e("QQQ",user.email)
+                    var sharePref = SharePref(context)
+                    sharePref.clear()
+                    sharePref.putUser(user)
                     v.updateOnSuccess()
                 }
             }

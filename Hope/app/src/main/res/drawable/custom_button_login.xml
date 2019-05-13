@@ -17,7 +17,7 @@
             android:shape="rectangle">
 
             <corners android:radius="5dp"/>
-            <solid android:color="@color/bg_sigin" />
+            <solid android:color="@color/color_homebar" />
         </shape>
     </item>
 </selector>

@@ -4,7 +4,7 @@
         android:angle="90"
         android:startColor="@color/color_bghome"
         android:centerColor="@color/color_homebar"
-        android:endColor="@color/login_button"/>
+        android:endColor="@color/color_homebar"/>
     <corners
         android:bottomRightRadius="@dimen/w10"
         android:bottomLeftRadius="@dimen/w10"

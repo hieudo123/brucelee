@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ShareActionProvider
 import android.widget.TextView
+import android.widget.Toast
 import com.example.lifestyle.hope.Models.Users
 import com.example.lifestyle.hope.R
 import com.example.lifestyle.hope.Views.Users.Login.LoginActivity
@@ -44,7 +45,6 @@ class YourPageFragment : BaseFragment(),View.OnClickListener{
         val view:View = inflater.inflate(R.layout.fragment_your_page,container,false)
         sharePref = SharePref(context)
         init(view)
-        getData()
         configureGoogle()
         return view
     }
@@ -113,5 +113,10 @@ class YourPageFragment : BaseFragment(),View.OnClickListener{
         val intent = Intent(context,LoginActivity::class.java)
         startActivity(intent)
         activity!!.finish()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getData()
     }
 }

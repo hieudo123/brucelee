@@ -86,7 +86,7 @@ abstract class BaseActivity : AppCompatActivity() {
             if(actionBar!=null)
                 actionBar?.setDisplayShowTitleEnabled(false)
 
-            toolbar.setNavigationIcon(R.drawable.ic_arrow_back)
+            toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp)
             toolbar.setNavigationOnClickListener {
                 onLeftActionClicked()
 

@@ -16,6 +16,8 @@ import android.widget.Toast
 import com.example.lifestyle.hope.Adapter.NewsAdapter
 import com.example.lifestyle.hope.Fragment.BaseFragment
 import com.example.lifestyle.hope.R
+import com.github.ybq.android.spinkit.sprite.Sprite
+import com.github.ybq.android.spinkit.style.Circle
 import com.github.ybq.android.spinkit.style.WanderingCubes
 
 class NewsFragment:BaseFragment(),View.OnClickListener {
@@ -62,6 +64,7 @@ class NewsFragment:BaseFragment(),View.OnClickListener {
         })
     }
 
+    //kiểm tra vị trí scroll có phải là cuối cùng không
     fun isLastVisiable(): Boolean {
         val layoutManager = (recyclerView.getLayoutManager() as LinearLayoutManager)
         val pos = layoutManager.findLastCompletelyVisibleItemPosition()
@@ -98,10 +101,12 @@ class NewsFragment:BaseFragment(),View.OnClickListener {
          progressBar.visibility = View.VISIBLE
      }
     override fun loadOnSuccess(isFirst :Boolean){
+        //kiểm tra nếu nó là lần lấy data đầu tiên thì gọi là setAdapter
         if (isFirst){
             setAdapter()
             progressBar.visibility = View.GONE
         }
+        //ngược lại lấy ra vị trí cuối và thay đổi adapter để ko bị load lại trang
         else{
             val recyclerViewState: Parcelable = recyclerView.layoutManager!!.onSaveInstanceState()!!
             adapter.notifyDataSetChanged()

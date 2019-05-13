@@ -13,11 +13,10 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/w200"
+            android:layout_height="@dimen/w248"
             android:scaleType="centerCrop"
             android:src="@drawable/bg_edittext2"
             app:layout_constraintEnd_toEndOf="parent"
@@ -30,36 +29,40 @@
             android:layout_width="@dimen/w150"
             android:layout_height="@dimen/w150"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="8dp"
             android:padding="@dimen/w5"
             android:scaleType="centerCrop"
-            android:src="@color/color_bghome"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            android:src="@color/login_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
 
         <EditText
             android:id="@+id/et_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="@+id/iv_avartar"
+            app:layout_constraintHorizontal_bias="0.537"
             app:layout_constraintStart_toStartOf="@+id/iv_avartar"
             app:layout_constraintTop_toBottomOf="@+id/iv_avartar" />
+
         <EditText
-            android:background="@drawable/bg_edittext3"
-            android:padding="@dimen/w10"
             android:id="@+id/et_email_pr"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/w35"
             android:layout_marginEnd="16dp"
+            android:background="@drawable/bg_edittext3"
             android:drawableLeft="@drawable/ic_email_black_24dp"
             android:drawablePadding="@dimen/w35"
+            android:padding="@dimen/w10"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/w16"
             app:layout_constraintEnd_toEndOf="parent"
@@ -70,7 +73,7 @@
             android:background="@drawable/bg_edittext3"
             android:padding="@dimen/w10"
             android:id="@+id/et_phone_pr"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
@@ -87,7 +90,7 @@
             android:background="@drawable/bg_edittext3"
             android:padding="@dimen/w10"
             android:id="@+id/et_gioitinh_pr"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
@@ -106,7 +109,7 @@
             android:background="@drawable/bg_edittext3"
             android:padding="@dimen/w10"
             android:id="@+id/et_address_pr"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
@@ -188,39 +191,41 @@
             android:id="@+id/iv_edit_picture"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/bg_edittext3"
-            android:padding="@dimen/w10"
+
+            android:layout_marginBottom="12dp"
+            android:padding="@dimen/w5"
             android:src="@drawable/ic_edit"
             app:layout_constraintBottom_toBottomOf="@+id/imageView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/iv_avartar"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+            app:layout_constraintEnd_toEndOf="@+id/iv_take_photo"
+            app:layout_constraintStart_toStartOf="@+id/iv_take_photo" />
 
         <ImageView
             android:id="@+id/iv_take_photo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:background="@drawable/bg_edittext3"
-            android:padding="@dimen/w10"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView"
-            app:layout_constraintEnd_toStartOf="@+id/iv_avartar"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:padding="@dimen/w5"
+            app:layout_constraintBottom_toTopOf="@+id/iv_edit_picture"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.985"
             app:srcCompat="@drawable/ic_pick_photo" />
+
         <ImageView
-            android:visibility="gone"
             android:id="@+id/iv_save_photo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             android:background="@drawable/bg_edittext3"
-            android:padding="@dimen/w10"
-            app:layout_constraintStart_toStartOf="@+id/iv_edit_picture"
-            app:layout_constraintTop_toBottomOf="@+id/iv_edit_picture"
+            android:padding="@dimen/w5"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/iv_take_photo"
+            app:layout_constraintEnd_toEndOf="@+id/iv_take_photo"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/iv_take_photo"
             app:srcCompat="@drawable/ic_check" />
 
         <ProgressBar
@@ -233,6 +238,17 @@
             android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/colorerror"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/et_email_pr"
+            app:layout_constraintTop_toBottomOf="@+id/et_username" />
 
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

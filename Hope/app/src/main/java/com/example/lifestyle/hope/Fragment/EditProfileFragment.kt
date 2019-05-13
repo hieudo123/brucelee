@@ -14,12 +14,16 @@ import com.example.lifestyle.hope.R
 import de.hdodenhof.circleimageview.CircleImageView
 import java.io.InputStream
 import android.provider.MediaStore
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.widget.*
 import com.example.lifestyle.hope.Models.Users
 import com.example.lifestyle.hope.Views.Users.UpdateProfile.ViewHandlerUpdateProfile
 import com.example.lifestyle.hope.presenter.Users.PreHandlerUpdateProfile
 import com.example.lifestyle.hope.utils.SharePref
+import com.github.ybq.android.spinkit.sprite.Sprite
+import com.github.ybq.android.spinkit.style.DoubleBounce
 import com.google.android.gms.tasks.Continuation
 import com.google.android.gms.tasks.Task
 import com.google.firebase.storage.FirebaseStorage
@@ -27,10 +31,11 @@ import com.google.firebase.storage.UploadTask
 import com.squareup.picasso.Picasso
 import java.io.ByteArrayOutputStream
 import java.util.*
+import com.github.ybq.android.spinkit.style.Circle
 
 
 class EditProfileFragment:BaseFragment(),View.OnClickListener,ViewHandlerUpdateProfile {
-
+    lateinit var isEmptyForm: TextView
     lateinit var progressBar: ProgressBar
     lateinit var user : Users
     lateinit var avatar :CircleImageView
@@ -47,6 +52,7 @@ class EditProfileFragment:BaseFragment(),View.OnClickListener,ViewHandlerUpdateP
     lateinit var takePhoto : ImageView
     lateinit var preHandlerUpdateProfile: PreHandlerUpdateProfile
     var REQUESTCODE: Int = 0
+    var imageUrl =""
     var storage = FirebaseStorage.getInstance("gs://hope-1557133861463.appspot.com")
     val storageRef = storage.reference
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -57,6 +63,7 @@ class EditProfileFragment:BaseFragment(),View.OnClickListener,ViewHandlerUpdateP
         return view
     }
     fun init(v : View){
+        isEmptyForm = v.findViewById(R.id.tv_error)
         avatar = v.findViewById(R.id.iv_avartar)
         editAvatar = v.findViewById(R.id.iv_edit_picture)
         username = v.findViewById(R.id.et_username)
@@ -69,6 +76,10 @@ class EditProfileFragment:BaseFragment(),View.OnClickListener,ViewHandlerUpdateP
         progressBar = v.findViewById(R.id.progressBar)
         save = v.findViewById(R.id.btn_save)
 
+
+        
+        var  circle : Sprite =Circle()
+        progressBar.setIndeterminateDrawable(circle);
         save.setOnClickListener(this)
         takePhoto.setOnClickListener(this)
         avatar.setOnClickListener(this)
@@ -99,7 +110,7 @@ class EditProfileFragment:BaseFragment(),View.OnClickListener,ViewHandlerUpdateP
            }
            R.id.btn_save->{
                if(user != null){
-                   updateProfile()
+                   checkIsEmptyForm()
                }
 
            }
@@ -151,8 +162,34 @@ class EditProfileFragment:BaseFragment(),View.OnClickListener,ViewHandlerUpdateP
             phonNumber.setText(user.phone_number)
             gender.setText(user.gender)
             if(user.image != ""){
-                Picasso.get().load(user.image).into(avatar)
+                imageUrl = user.image
+                Picasso.get().load(user.image).error(R.drawable.ic_account_circle_black_24dp).into(avatar)
             }
+        }
+    }
+    fun checkIsEmptyForm(){
+        if(username.text.isEmpty() ||
+                email.text.isEmpty() ||
+                gender.text.isEmpty() ||
+                phonNumber.text.isEmpty() ||
+                address.text.isEmpty()){
+            isEmptyForm.setText(getText(R.string.empty))
+            isEmptyForm.visibility = View.VISIBLE
+        }
+        else{
+            getData()
+            updateProfile()
+        }
+
+    }
+    fun setData(){
+        user.username = username.text.toString()
+        user.email = email.text.toString()
+        user.gender = gender.text.toString()
+        user.phone_number = phonNumber.text.toString()
+        user.address = address.text.toString()
+        if(imageUrl !=null){
+            user.image = imageUrl
         }
     }
     fun upLoadImage(){
@@ -164,7 +201,7 @@ class EditProfileFragment:BaseFragment(),View.OnClickListener,ViewHandlerUpdateP
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos)
         val data = baos.toByteArray()
         val calendar : Calendar = Calendar.getInstance()
-        val mountainsRef = storageRef.child("Image"+ user.username + ".png")
+        val mountainsRef = storageRef.child("Image"+user.id+ ".png")
         var uploadTask = mountainsRef.putBytes(data)
         uploadTask.addOnFailureListener {
             updaterOnFail()
@@ -181,13 +218,30 @@ class EditProfileFragment:BaseFragment(),View.OnClickListener,ViewHandlerUpdateP
                 if (task.isSuccessful) {
                     val downloadUri = task.result
                     Log.e("LLL",downloadUri.toString())
-                    user.image = downloadUri.toString()
+                    imageUrl = downloadUri.toString()
                     savePhoto.visibility = View.GONE
+                    updateOnSuccess()
                 } else {
 
                 }
             }
         }
+    }
+    fun onTextChange(item :EditText){
+        item.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                if (s!!.count() ==0){
+                }
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if(count > 0) {
+
+                }
+            }
+        })
     }
     fun updateProfile(){
         preHandlerUpdateProfile = PreHandlerUpdateProfile(user, this.context!!,this)
@@ -199,16 +253,17 @@ class EditProfileFragment:BaseFragment(),View.OnClickListener,ViewHandlerUpdateP
 
     override fun updateOnSuccess() {
         progressBar.visibility = View.GONE
+        isEmptyForm.visibility = View.GONE
         onResume()
     }
 
     override fun updaterOnFail() {
         progressBar.visibility = View.GONE
+        isEmptyForm.visibility = View.GONE
         Toast.makeText(context,"Up load fail",Toast.LENGTH_SHORT).show()
     }
 
     override fun onResume() {
-        Toast.makeText(context,"onResume",Toast.LENGTH_SHORT).show()
         super.onResume()
     }
 }
