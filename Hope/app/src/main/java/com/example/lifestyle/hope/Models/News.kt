@@ -11,9 +11,9 @@ class News(
         @Expose
         @SerializedName("Title") var title:String,
         @Expose
-        @SerializedName("Like_count")var like_count:Int,
+        @SerializedName("Like_counter")var like_count:Int,
         @Expose
-        @SerializedName("View_count")var view_count:Int,
+        @SerializedName("View_counter")var view_count:Int,
         @Expose
         @SerializedName("Content") var content:String,
         @Expose

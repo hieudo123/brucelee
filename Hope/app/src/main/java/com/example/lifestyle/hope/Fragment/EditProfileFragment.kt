@@ -16,10 +16,14 @@ import java.io.InputStream
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import android.util.Log
 import android.widget.*
 import com.example.lifestyle.hope.Models.Users
 import com.example.lifestyle.hope.Views.Users.UpdateProfile.ViewHandlerUpdateProfile
+import com.example.lifestyle.hope.Views.Users.ViewHandlerChangePassword
+import com.example.lifestyle.hope.presenter.Users.PreHandlerChangePassword
 import com.example.lifestyle.hope.presenter.Users.PreHandlerUpdateProfile
 import com.example.lifestyle.hope.utils.SharePref
 import com.github.ybq.android.spinkit.sprite.Sprite
@@ -36,8 +40,13 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 
 
-class EditProfileFragment:BaseFragment(),View.OnClickListener,ViewHandlerUpdateProfile {
+class  EditProfileFragment:BaseFragment(),View.OnClickListener,ViewHandlerUpdateProfile,ViewHandlerChangePassword {
+    lateinit var newPassword: EditText
+    lateinit var btnChangePassword:Button
+    lateinit var countPassword : TextView
+    lateinit var password: EditText
     lateinit var isEmptyForm: TextView
+    lateinit var showPassword : TextView
     lateinit var progressBar: ProgressBar
     lateinit var user : Users
     lateinit var avatar :CircleImageView
@@ -53,6 +62,7 @@ class EditProfileFragment:BaseFragment(),View.OnClickListener,ViewHandlerUpdateP
     lateinit var username : EditText
     lateinit var takePhoto : ImageView
     lateinit var preHandlerUpdateProfile: PreHandlerUpdateProfile
+    lateinit var preHandlerChangePassword: PreHandlerChangePassword
     var REQUESTCODE: Int = 0
     var imageUrl =""
     var storage = FirebaseStorage.getInstance("gs://hope-1557133861463.appspot.com")
@@ -65,6 +75,10 @@ class EditProfileFragment:BaseFragment(),View.OnClickListener,ViewHandlerUpdateP
         return view
     }
     fun init(v : View){
+        newPassword = v.findViewById(R.id.et_new_pass)
+        btnChangePassword = v.findViewById(R.id.btn_changepw)
+        countPassword = v.findViewById(R.id.tv_checkpass)
+        showPassword = v.findViewById(R.id.tv_show_pass)
         isEmptyForm = v.findViewById(R.id.tv_error)
         avatar = v.findViewById(R.id.iv_avartar)
         editAvatar = v.findViewById(R.id.iv_edit_picture)
@@ -77,7 +91,7 @@ class EditProfileFragment:BaseFragment(),View.OnClickListener,ViewHandlerUpdateP
         savePhoto = v.findViewById(R.id.iv_save_photo)
         progressBar = v.findViewById(R.id.progressBar)
         save = v.findViewById(R.id.btn_save)
-
+        password = v.findViewById(R.id.et_old_pass)
 
         
         var  circle : Sprite =Circle()
@@ -87,6 +101,10 @@ class EditProfileFragment:BaseFragment(),View.OnClickListener,ViewHandlerUpdateP
         avatar.setOnClickListener(this)
         editAvatar.setOnClickListener(this)
         savePhoto.setOnClickListener(this)
+        showPassword.setOnClickListener(this)
+        btnChangePassword.setOnClickListener(this)
+        onTextChange(password)
+        onTextChange(newPassword)
 //        userid = sharePref.getString("userid","")
 //        if(userid != null){
 //            Log.e("AAA",userid.replace(" ",""))
@@ -116,6 +134,19 @@ class EditProfileFragment:BaseFragment(),View.OnClickListener,ViewHandlerUpdateP
                    checkIsEmptyForm()
                }
 
+           }
+           R.id.tv_show_pass->{
+               if(password.transformationMethod == PasswordTransformationMethod.getInstance()) {
+                   showPassword.setText(R.string.hide)
+                   password.setTransformationMethod(HideReturnsTransformationMethod.getInstance())
+               }
+               else {
+                   showPassword.setText(R.string.show)
+                   password.setTransformationMethod(PasswordTransformationMethod.getInstance())
+               }
+           }
+           R.id.btn_changepw->{
+               checkIsEmptyPassword()
            }
        }
     }
@@ -165,6 +196,7 @@ class EditProfileFragment:BaseFragment(),View.OnClickListener,ViewHandlerUpdateP
             phonNumber.setText(user.phone_number)
             gender.setText(user.gender)
             if(user.image != ""){
+                imageUrl = user.image
                 Picasso.get().load(user.image).error(R.drawable.ic_account_circle_black_24dp).into(avatar)
             }
         }
@@ -184,16 +216,25 @@ class EditProfileFragment:BaseFragment(),View.OnClickListener,ViewHandlerUpdateP
         }
 
     }
+    fun checkIsEmptyPassword(){
+        if (password.text.isEmpty() || newPassword.text.isEmpty()){
+            isEmptyForm.setText(getText(R.string.empty))
+            isEmptyForm.visibility = View.VISIBLE
+        }
+        else
+            changePassword(password.text.toString().trim(),newPassword.text.toString().trim())
+    }
     fun setData(){
         user.username = username.text.toString()
         user.email = email.text.toString()
         user.gender = gender.text.toString()
         user.phone_number = phonNumber.text.toString()
         user.address = address.text.toString()
-        if(imageUrl !=null){
+        if(imageUrl.isNotEmpty()){
             user.image = imageUrl
         }
     }
+    //upload hình lên firebase và get URL về lưu vào database
     fun upLoadImage(){
         updateOnProgess()
         avatar.isDrawingCacheEnabled = true
@@ -203,7 +244,7 @@ class EditProfileFragment:BaseFragment(),View.OnClickListener,ViewHandlerUpdateP
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos)
         val data = baos.toByteArray()
         val calendar : Calendar = Calendar.getInstance()
-        val mountainsRef = storageRef.child("UserPicture/Image"+user.id+ ".png")
+        val mountainsRef = storageRef.child("UserPicture/Image${user.id}.png")
         var uploadTask = mountainsRef.putBytes(data)
         uploadTask.addOnFailureListener {
             updaterOnFail()
@@ -234,17 +275,26 @@ class EditProfileFragment:BaseFragment(),View.OnClickListener,ViewHandlerUpdateP
         item.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 if (s!!.count() ==0){
+                    showPassword.visibility = View.GONE
+                }
+                if(s.count() <8){
+                    countPassword.visibility = View.VISIBLE
                 }
             }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
             }
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if(count > 0) {
-
+                if(count > 0 || count <=8 ) {
+                    showPassword.visibility = View.VISIBLE
+                    countPassword.visibility = View.GONE
                 }
             }
         })
+    }
+    fun changePassword(password: String, repassword: String ){
+        preHandlerChangePassword = PreHandlerChangePassword(user, this.context!!,this)
+        preHandlerChangePassword.changePassword(password,repassword)
     }
     fun updateProfile(){
         preHandlerUpdateProfile = PreHandlerUpdateProfile(user, this.context!!,this)
@@ -256,6 +306,7 @@ class EditProfileFragment:BaseFragment(),View.OnClickListener,ViewHandlerUpdateP
 
     override fun updateOnSuccess() {
         progressBar.visibility = View.GONE
+        Toast.makeText(context,"Thay đổi thành công !",Toast.LENGTH_SHORT).show()
         isEmptyForm.visibility = View.GONE
         onResume()
     }
@@ -265,7 +316,22 @@ class EditProfileFragment:BaseFragment(),View.OnClickListener,ViewHandlerUpdateP
         isEmptyForm.visibility = View.GONE
         Toast.makeText(context,"Up load fail",Toast.LENGTH_SHORT).show()
     }
+    override fun changeInProgress() {
+        progressBar.visibility = View.VISIBLE
+        countPassword.visibility = View.GONE
+    }
 
+    override fun changeOnSuccess() {
+        countPassword.visibility = View.GONE
+        progressBar.visibility = View.GONE
+        Toast.makeText(context,"Đổi mật khẩu thành công !",Toast.LENGTH_SHORT).show()
+    }
+
+    override fun changeOnFail() {
+        countPassword.visibility = View.GONE
+        progressBar.visibility = View.GONE
+        Toast.makeText(context,"Đổi mật khẩu thất bại !",Toast.LENGTH_SHORT).show()
+    }
     override fun onResume() {
         super.onResume()
     }
