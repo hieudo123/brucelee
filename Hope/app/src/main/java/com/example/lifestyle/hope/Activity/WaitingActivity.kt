@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.ProgressBar
 import com.example.lifestyle.hope.R
+import com.example.lifestyle.hope.utils.SharePref
 import com.github.ybq.android.spinkit.style.WanderingCubes
 
 class WaitingActivity : AppCompatActivity(){
@@ -19,6 +20,7 @@ class WaitingActivity : AppCompatActivity(){
         val doubleBounce = WanderingCubes()
         progressBar.indeterminateDrawable = doubleBounce
         val handler = Handler()
+
         handler.postDelayed({
             var intent = Intent(this,MainActivity::class.java)
             startActivity(intent)

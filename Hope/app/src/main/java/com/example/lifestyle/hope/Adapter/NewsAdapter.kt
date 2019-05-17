@@ -7,16 +7,18 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.example.lifestyle.hope.Activity.MainActivity
 import com.example.lifestyle.hope.Models.News
 import com.example.lifestyle.hope.R
 import com.example.lifestyle.hope.Views.News.NewsDetailActivity
+import com.squareup.picasso.Picasso
 import org.w3c.dom.Text
 
 
-class NewsAdapter(var context: Context,var list:ArrayList<String>):RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
+class NewsAdapter(var context: Context,var list:ArrayList<News>):RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
     override fun onCreateViewHolder(p0: ViewGroup, i: Int): ViewHolder {
         var v: View = LayoutInflater.from(p0.context).inflate(R.layout.item_news,p0,false)
         return ViewHolder(v)
@@ -27,9 +29,12 @@ class NewsAdapter(var context: Context,var list:ArrayList<String>):RecyclerView.
     }
 
     override fun onBindViewHolder(holder: ViewHolder, i: Int) {
-        holder.createdBy.setText(list[i])
+        holder.likeCounter.setText(list[i].like_count.toString())
+        holder.viewCounter.setText(list[i].view_count.toString())
+        holder.title.setText(list[i].title)
+        holder.createdBy.setText(list[i].created_by)
+        Picasso.get().load(list[i].image).error(R.drawable.ic_image).into(holder.image)
         holder.itemView.setOnClickListener {
-            Toast.makeText(context,list.get(i),Toast.LENGTH_SHORT).show()
             var intent = Intent(context, NewsDetailActivity::class.java)
             context.startActivity(intent)
         }
@@ -37,5 +42,10 @@ class NewsAdapter(var context: Context,var list:ArrayList<String>):RecyclerView.
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var createdBy : TextView = itemView.findViewById(R.id.tv_createdby)
+        var image : ImageView = itemView.findViewById(R.id.iv_news)
+        var title : TextView = itemView.findViewById(R.id.tv_news_title)
+        var viewCounter : TextView = itemView.findViewById(R.id.tv_view_counter)
+        var likeCounter : TextView = itemView.findViewById(R.id.tv_quality_like)
+        var commentCounter : TextView = itemView.findViewById(R.id.tv_comment_counter)
     }
 }

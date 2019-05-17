@@ -32,15 +32,14 @@ class PreHandlerUpdateProfile(var user :Users, var context: Context, var v : Vie
             }
             override fun onResponse(call: Call<resUser>?, response: Response<resUser>?) {
                 val jsonRespone = response!!.body()
-                if (jsonRespone.data != null){
-                    user = jsonRespone.data
-                    Log.e("QQQ",user.email)
-                    var sharePref = SharePref(context)
-                    sharePref.clear()
-                    sharePref.putUser(user)
-                    v.updateOnSuccess()
-                }
-                v.updaterOnFail()
+                Log.e("QQQ",jsonRespone.data.email)
+                user = jsonRespone.data
+                Log.e("QQQ",user.email)
+                var sharePref = SharePref(context)
+                sharePref.clear()
+                sharePref.putUser(user)
+                v.updateOnSuccess()
+
             }
         })
     }

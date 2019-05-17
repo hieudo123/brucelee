@@ -31,7 +31,7 @@ class Users(
         var image :String,
         @Expose
         @SerializedName("Gender")
-        var gender :String,
+        var gender :Int,
         @Expose
         @SerializedName("Status")
         var status :Int) : Parcelable {
@@ -43,7 +43,7 @@ class Users(
             parcel.readString(),
             parcel.readString(),
             parcel.readString(),
-            parcel.readString(),
+            parcel.readInt(),
             parcel.readInt()) {
     }
 

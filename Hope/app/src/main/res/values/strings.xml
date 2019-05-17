@@ -58,4 +58,5 @@
     <string name="msg_subscribe_failed">Fail Connect</string>
     <string name="save">Lưu</string>
     <string name="passwordValidat">Tối thiểu 8 kí tự</string>
+    <string name="isEmail">Vui lòng nhập đúng định dạng email</string>
 </resources>

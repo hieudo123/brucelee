@@ -1,87 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:layout_marginTop="@dimen/w10"
-    android:background="@color/text_white"
+<android.support.v7.widget.CardView
+    card_view:cardMaxElevation="@dimen/w5"
+    android:layout_margin="@dimen/w10"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="@dimen/sp15">
-    <TextView
-        android:textStyle="bold"
-        android:id="@+id/tv_createdby"
-        android:textSize="@dimen/w16"
-        android:textColor="@color/login_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="New House"/>
-    <ImageView
-        android:id="@+id/iv_news"
-        android:scaleType="centerCrop"
-        android:layout_marginTop="@dimen/sp21"
-        android:layout_width="match_parent"
-        android:src="@drawable/background03"
-        android:layout_height="250dp"/>
-    <TextView
-        android:id="@+id/tv_news_title"
-        android:textSize="@dimen/w16"
-        android:layout_marginTop="@dimen/sp15"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Cần bán gấp 2 căn nhà khu Phú Mỹ Hưng"
-        />
-    <View
-        android:layout_marginTop="@dimen/w10"
-        android:background="@color/color_bghome"
-        android:layout_width="match_parent"
-        android:layout_height="3dp">
-    </View>
+    xmlns:card_view="http://schemas.android.com/apk/res-auto">
     <LinearLayout
-        android:layout_marginTop="@dimen/w10"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <LinearLayout
+        <ImageView
+            android:id="@+id/iv_news"
+            android:scaleType="centerCrop"
             android:layout_width="match_parent"
-            android:layout_weight="1"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/tv_quality_like"
-                android:textColor="@color/text_shadow"
-                android:textSize="@dimen/w12"
-                android:drawablePadding="@dimen/w10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="10"
-                android:drawableRight="@drawable/ic_like2"/>
-            <TextView
-                android:textColor="@color/text_shadow"
-
-                android:textSize="@dimen/w12"
-                android:drawablePadding="@dimen/w10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="10"
-                android:drawableRight="@drawable/ic_comment"/>
-            <TextView
-                android:drawablePadding="@dimen/w10"
-                android:id="@+id/tv_view"
-                android:textColor="@color/text_shadow"
-
-                android:textSize="@dimen/w12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="10"
-                android:drawableRight="@drawable/icons_eye_16"/>
-        </LinearLayout>
+            android:src="@drawable/ic_image"
+            android:layout_height="250dp"/>
         <TextView
-            android:gravity="right"
-            android:textColor="@color/text_shadow"
-            android:textSize="@dimen/w12"
-            android:layout_weight="1"
+            android:layout_margin="@dimen/w5"
+            android:textStyle="bold"
+            android:id="@+id/tv_createdby"
+            android:textSize="@dimen/w16"
+            android:textColor="@color/login_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="22:00 15/4/2019"/>
+            android:text="New House"/>
+        <TextView
+            android:layout_margin="@dimen/w5"
+            android:id="@+id/tv_news_title"
+            android:textSize="@dimen/w16"
+            android:layout_marginTop="@dimen/sp15"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cần bán gấp 2 căn nhà khu Phú Mỹ Hưng"
+            />
+        <View
+            android:layout_marginTop="@dimen/w10"
+            android:background="@color/color_bghome"
+            android:layout_width="match_parent"
+            android:layout_height="3dp">
+        </View>
+        <LinearLayout
+            android:layout_margin="@dimen/w10"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tv_quality_like"
+                    android:textColor="@color/text_shadow"
+                    android:textSize="@dimen/w12"
+                    android:drawablePadding="@dimen/w10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10"
+                    android:drawableRight="@drawable/ic_like2"/>
+                <TextView
+                    android:textColor="@color/text_shadow"
+                    android:id="@+id/tv_comment_counter"
+                    android:textSize="@dimen/w12"
+                    android:drawablePadding="@dimen/w10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10"
+                    android:drawableRight="@drawable/ic_comment"/>
+                <TextView
+                    android:drawablePadding="@dimen/w10"
+                    android:id="@+id/tv_view_counter"
+                    android:textColor="@color/text_shadow"
+                    android:textSize="@dimen/w12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10"
+                    android:drawableRight="@drawable/icons_eye_16"/>
+            </LinearLayout>
+            <TextView
+                android:gravity="right"
+                android:textColor="@color/text_shadow"
+                android:textSize="@dimen/w12"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="22:00 15/4/2019"/>
+        </LinearLayout>
     </LinearLayout>
-
-</LinearLayout>
+</android.support.v7.widget.CardView>

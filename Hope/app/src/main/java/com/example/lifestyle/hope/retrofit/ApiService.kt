@@ -1,6 +1,7 @@
 package com.example.lifestyle.hope.retrofit
 
 import com.example.lifestyle.hope.Models.BaseModels
+import com.example.lifestyle.hope.respone.resNews
 import com.example.lifestyle.hope.respone.resUser
 import retrofit2.Call
 import retrofit2.http.*
@@ -14,7 +15,7 @@ interface ApiService {
                       @Field ("Phone") phone: String,
                       @Field ("Address") address: String,
                       @Field ("Email") email: String,
-                      @Field ("Gender") gender: String,
+                      @Field ("Gender") gender: Int,
                       @Field ("Image") image :String): Call<resUser>
     @FormUrlEncoded
     @POST("ChangePassword.php")
@@ -28,4 +29,6 @@ interface ApiService {
                    @Field ("Createdby") CreatedBy: String,
                    @Field("Createdtime") CreatedTime: Long,
                    @Field("Image") Image:String): Call<BaseModels>
+    @GET("GetAllNews.php")
+    fun getAllNews (@Query ("page") page : Int) : Call<resNews>
 }

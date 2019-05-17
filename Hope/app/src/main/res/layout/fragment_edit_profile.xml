@@ -71,6 +71,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_username" />
         <EditText
+            android:inputType="number"
             android:maxLength="10"
             android:background="@drawable/bg_edittext3"
             android:padding="@dimen/w10"
@@ -88,18 +89,51 @@
             app:layout_constraintHorizontal_bias="0.1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_email_pr" />
-        <EditText
-            android:background="@drawable/bg_edittext3"
+
+        <RadioGroup
+            android:id="@+id/radGroup"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="horizontal"
             android:padding="@dimen/w10"
-            android:id="@+id/et_gioitinh_pr"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_address_pr">
+
+            <RadioButton
+                android:id="@+id/radNam"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:padding="@dimen/w10"
+                android:text="Nam" />
+
+            <RadioButton
+                android:id="@+id/radNu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/w10"
+                android:text="Nữ"
+                app:layout_constraintStart_toEndOf="@+id/radNam"
+                app:layout_constraintTop_toBottomOf="@+id/et_address_pr" />
+
+
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/et_address_pr"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/w16"
             android:layout_marginEnd="16dp"
-            android:drawableLeft="@drawable/ic_account_circle_black_24dp"
+            android:background="@drawable/bg_edittext3"
+            android:drawableLeft="@drawable/ic_location"
             android:drawablePadding="@dimen/w35"
-
+            android:padding="@dimen/w10"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/w16"
             app:layout_constraintEnd_toEndOf="parent"
@@ -107,35 +141,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_phone_pr" />
 
-        <EditText
-            android:background="@drawable/bg_edittext3"
-            android:padding="@dimen/w10"
-            android:id="@+id/et_address_pr"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:drawableLeft="@drawable/ic_location"
-            android:drawablePadding="@dimen/w35"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="@dimen/w16"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_gioitinh_pr" />
-
         <Button
-            android:textColor="@color/text_white"
             android:id="@+id/btn_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/w16"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="@dimen/w16"
-            android:text="@string/save"
             android:background="@drawable/custom_button_login"
+            android:text="@string/save"
+            android:textColor="@color/text_white"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_address_pr" />
+            app:layout_constraintTop_toBottomOf="@+id/radGroup" />
 
         <Button
             android:background="@drawable/custom_button_login"
@@ -234,15 +250,15 @@
             app:srcCompat="@drawable/ic_check" />
 
         <ProgressBar
-            android:visibility="gone"
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/iv_avartar" />
 
         <TextView
             android:id="@+id/tv_error"

@@ -19,7 +19,7 @@ class News(
         @Expose
         @SerializedName("Created_by")var created_by:String,
         @Expose
-        @SerializedName("Created_time") var created_time:Date,
+        @SerializedName("Created_time") var created_time:Long,
         @Expose
         @SerializedName("Image") var image:String,
         @Expose

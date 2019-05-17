@@ -38,7 +38,7 @@ class PreHandlerLogin(var context: Context, var user: Users?, var v: ViewHandler
                                 u.getString("Address"),
                                 u.getString("Email"),
                                 u.getString("Image"),
-                                u.getString("Gender"),
+                                u.getInt("Gender"),
                                 u.getInt("Status"))
                         Log.e("Object", user!!.username)
                         sharePref = SharePref(context)

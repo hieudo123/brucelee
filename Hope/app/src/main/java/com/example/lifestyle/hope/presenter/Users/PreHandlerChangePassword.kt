@@ -25,15 +25,12 @@ class PreHandlerChangePassword(var user:Users,var context : Context,var v:ViewHa
             }
             override fun onResponse(call: Call<resUser>?, response: Response<resUser>?) {
                 val jsonRespone = response!!.body()
-                if (jsonRespone.data != null) {
-                    user = jsonRespone.data
-                    Log.e("QQQ", user.email)
-                    var sharePref = SharePref(context)
-                    sharePref.clear()
-                    sharePref.putUser(user)
-                    v.changeOnSuccess()
-                }
-                v.changeOnFail()
+                user = jsonRespone.data
+                Log.e("QQQ", user.email)
+                var sharePref = SharePref(context)
+                sharePref.clear()
+                sharePref.putUser(user)
+                v.changeOnSuccess()
             }
         })
     }

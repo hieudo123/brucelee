@@ -41,6 +41,8 @@ import com.google.android.gms.maps.OnMapReadyCallback
 
 
 class  EditProfileFragment:BaseFragment(),View.OnClickListener,ViewHandlerUpdateProfile,ViewHandlerChangePassword {
+    lateinit var radNam : RadioButton
+    lateinit var radNu : RadioButton
     lateinit var newPassword: EditText
     lateinit var btnChangePassword:Button
     lateinit var countPassword : TextView
@@ -86,13 +88,13 @@ class  EditProfileFragment:BaseFragment(),View.OnClickListener,ViewHandlerUpdate
         phonNumber = v.findViewById(R.id.et_phone_pr)
         address = v.findViewById(R.id.et_address_pr)
         email = v.findViewById(R.id.et_email_pr)
-        gender = v.findViewById(R.id.et_gioitinh_pr)
         takePhoto = v.findViewById(R.id.iv_take_photo)
         savePhoto = v.findViewById(R.id.iv_save_photo)
         progressBar = v.findViewById(R.id.progressBar)
         save = v.findViewById(R.id.btn_save)
         password = v.findViewById(R.id.et_old_pass)
-
+        radNam = v.findViewById(R.id.radNam)
+        radNu = v.findViewById(R.id.radNu)
         
         var  circle : Sprite =Circle()
         progressBar.setIndeterminateDrawable(circle);
@@ -105,6 +107,7 @@ class  EditProfileFragment:BaseFragment(),View.OnClickListener,ViewHandlerUpdate
         btnChangePassword.setOnClickListener(this)
         onTextChange(password)
         onTextChange(newPassword)
+        emailTextChange(email)
 //        userid = sharePref.getString("userid","")
 //        if(userid != null){
 //            Log.e("AAA",userid.replace(" ",""))
@@ -126,7 +129,6 @@ class  EditProfileFragment:BaseFragment(),View.OnClickListener,ViewHandlerUpdate
 
            }
            R.id.iv_save_photo->{
-
                 upLoadImage()
            }
            R.id.btn_save->{
@@ -194,19 +196,36 @@ class  EditProfileFragment:BaseFragment(),View.OnClickListener,ViewHandlerUpdate
             email.setText(user.email)
             address.setText(user.address)
             phonNumber.setText(user.phone_number)
-            gender.setText(user.gender)
             if(user.image != ""){
                 imageUrl = user.image
                 Picasso.get().load(user.image).error(R.drawable.ic_account_circle_black_24dp).into(avatar)
             }
+            if(user.gender !=null){
+                if (user.gender == 1)
+                    radNam.isChecked =true
+                else
+                    radNam.isChecked =true
+            }
         }
+    }
+    fun setData(){
+        user.username = username.text.toString()
+        user.email = email.text.toString()
+        user.phone_number = phonNumber.text.toString()
+        user.address = address.text.toString()
+        if(imageUrl.isNotEmpty()){
+            user.image = imageUrl
+        }
+        if(radNam.isChecked)
+            user.gender = 1
+        else
+            user.gender = 0
     }
     fun checkIsEmptyForm(){
         if(username.text.isEmpty() ||
                 email.text.isEmpty() ||
-                gender.text.isEmpty() ||
                 phonNumber.text.isEmpty() ||
-                address.text.isEmpty()){
+                address.text.isEmpty()&& isValidEmail(email.text)){
             isEmptyForm.setText(getText(R.string.empty))
             isEmptyForm.visibility = View.VISIBLE
         }
@@ -224,16 +243,7 @@ class  EditProfileFragment:BaseFragment(),View.OnClickListener,ViewHandlerUpdate
         else
             changePassword(password.text.toString().trim(),newPassword.text.toString().trim())
     }
-    fun setData(){
-        user.username = username.text.toString()
-        user.email = email.text.toString()
-        user.gender = gender.text.toString()
-        user.phone_number = phonNumber.text.toString()
-        user.address = address.text.toString()
-        if(imageUrl.isNotEmpty()){
-            user.image = imageUrl
-        }
-    }
+
     //upload hình lên firebase và get URL về lưu vào database
     fun upLoadImage(){
         updateOnProgess()
@@ -270,6 +280,33 @@ class  EditProfileFragment:BaseFragment(),View.OnClickListener,ViewHandlerUpdate
                 }
             }
         }
+    }
+    fun isValidEmail(target : CharSequence ) : Boolean{
+        if(target.isEmpty())
+            return false
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches()
+    }
+    fun emailTextChange(email: EditText){
+       email.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                if(s!!.count() > 0){
+                    if(isValidEmail(email.text)!=true) {
+                        isEmptyForm.setText(getText(R.string.isEmail))
+                        isEmptyForm.visibility = View.VISIBLE
+                    }
+                    else
+                        isEmptyForm.visibility = View.GONE
+                }
+                else
+                    isEmptyForm.visibility = View.GONE
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+            }
+        })
     }
     fun onTextChange(item :EditText){
         item.addTextChangedListener(object : TextWatcher {
@@ -324,6 +361,8 @@ class  EditProfileFragment:BaseFragment(),View.OnClickListener,ViewHandlerUpdate
     override fun changeOnSuccess() {
         countPassword.visibility = View.GONE
         progressBar.visibility = View.GONE
+        password.text.clear()
+        newPassword.text.clear()
         Toast.makeText(context,"Đổi mật khẩu thành công !",Toast.LENGTH_SHORT).show()
     }
 

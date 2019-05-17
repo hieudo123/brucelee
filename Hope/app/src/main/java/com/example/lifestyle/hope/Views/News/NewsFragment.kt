@@ -15,40 +15,38 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import com.example.lifestyle.hope.Adapter.NewsAdapter
 import com.example.lifestyle.hope.Fragment.BaseFragment
+import com.example.lifestyle.hope.Models.News
 import com.example.lifestyle.hope.R
+import com.example.lifestyle.hope.presenter.News.PreHandlerNews
+import com.example.lifestyle.hope.presenter.News.PreImpNews
 import com.github.ybq.android.spinkit.sprite.Sprite
 import com.github.ybq.android.spinkit.style.Circle
 import com.github.ybq.android.spinkit.style.WanderingCubes
 
-class NewsFragment:BaseFragment(),View.OnClickListener {
-    lateinit var floatingActionButton: FloatingActionButton
+class NewsFragment:BaseFragment(),View.OnClickListener,ViewHandlerGetNews {
 
+
+    lateinit var floatingActionButton: FloatingActionButton
     lateinit var recyclerView: RecyclerView
-    var list= ArrayList<String>()
+    var list =  ArrayList<News>()
+    var page = 1
     lateinit var progressBar: ProgressBar
     lateinit var progressBarLastPage :ProgressBar
     lateinit var adapter:NewsAdapter
+    lateinit var preHandlerNews: PreHandlerNews
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view:View = inflater.inflate(R.layout.fragment_news,container,false)
         Toast.makeText(context,"News",Toast.LENGTH_SHORT).show()
         recyclerView = view.findViewById(R.id.rv_news)
         init(view)
-
-        var handler = Handler()
-        var runnable = Runnable {
-            loadInProgress()
-            loadAllNews()
-        }; handler.postDelayed(runnable, 1000)
+        getNews(page)
         return view
     }
-    fun init(view:View)
-    {
+    fun init(view:View) {
         progressBar = view.findViewById(R.id.progress)
         progressBarLastPage = view.findViewById(R.id.prb_last_page)
         floatingActionButton = view.findViewById(R.id.fbtn_addnews) as FloatingActionButton
         floatingActionButton.setOnClickListener(this)
-
-
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener(){
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -56,30 +54,23 @@ class NewsFragment:BaseFragment(),View.OnClickListener {
                     progressBarLastPage.visibility = View.VISIBLE
                     var handler = Handler()
                     var runnable = Runnable {
-                        loadAllNews()
+                        getNews(page)
                     }; handler.postDelayed(runnable, 1000)
 
                 }
             }
         })
     }
-
+    fun getNews(page : Int){
+        preHandlerNews = PreHandlerNews(this.context!!,this,list)
+        preHandlerNews.getAllNews(1)
+    }
     //kiểm tra vị trí scroll có phải là cuối cùng không
     fun isLastVisiable(): Boolean {
         val layoutManager = (recyclerView.getLayoutManager() as LinearLayoutManager)
         val pos = layoutManager.findLastCompletelyVisibleItemPosition()
         val numItems = adapter.itemCount
         return (pos >= numItems - 1)
-    }
-    fun loadAllNews(){
-        for(i:Int in 0..10-1)
-        {
-            list.add("News" + i);
-        }
-        if(list.size <= 10)
-            loadOnSuccess(true)
-        else
-            loadOnSuccess(false)
     }
     fun setAdapter()
     {
@@ -97,6 +88,18 @@ class NewsFragment:BaseFragment(),View.OnClickListener {
             }
         }
     }
+    override fun getAllNewsSuccess() {
+        if(list.size <= 5){
+            loadOnSuccess(true)
+        }
+        else
+            loadOnSuccess(false)
+
+    }
+
+    override fun getAllNewsFail() {
+        loadOnFail()
+    }
     override fun loadInProgress(){
          progressBar.visibility = View.VISIBLE
      }
@@ -108,6 +111,7 @@ class NewsFragment:BaseFragment(),View.OnClickListener {
         }
         //ngược lại lấy ra vị trí cuối và thay đổi adapter để ko bị load lại trang
         else{
+            page++
             val recyclerViewState: Parcelable = recyclerView.layoutManager!!.onSaveInstanceState()!!
             adapter.notifyDataSetChanged()
             recyclerView.layoutManager!!.onRestoreInstanceState(recyclerViewState)

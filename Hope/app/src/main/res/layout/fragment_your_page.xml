@@ -87,13 +87,13 @@
             android:text="@string/logout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-        <FrameLayout
-            android:id="@+id/ll_mapBox"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-        </FrameLayout>
     </LinearLayout>
+    <FrameLayout
+        android:layout_marginTop="@dimen/w10"
+        android:id="@+id/ll_mapBox"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
+    </FrameLayout>
 </LinearLayout>
