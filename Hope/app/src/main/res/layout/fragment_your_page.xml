@@ -36,7 +36,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
-
             android:layout_margin="@dimen/w10"
             android:drawableLeft="@drawable/ic_heart"
             android:drawablePadding="@dimen/w20"
@@ -47,47 +46,49 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
-    <LinearLayout
-        android:layout_gravity="bottom"
+    <android.support.v7.widget.CardView
         android:layout_margin="@dimen/w5"
-        android:background="@drawable/bg_edittext"
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/tv_your_profile"
-            android:layout_margin="@dimen/w10"
-            android:drawableLeft="@drawable/ic_user"
-            android:drawablePadding="@dimen/w20"
-            android:background="@drawable/custom_textview_click2"
-            android:gravity="center_vertical"
-            android:textSize="@dimen/sp18"
-            android:text="@string/settingprofile"
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/tv_help"
-            android:layout_margin="@dimen/w10"
-            android:drawableLeft="@drawable/ic_help"
-            android:drawablePadding="@dimen/w20"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_your_profile"
+                android:layout_margin="@dimen/w10"
+                android:drawableLeft="@drawable/ic_user"
+                android:drawablePadding="@dimen/w20"
+                android:background="@drawable/custom_textview_click2"
+                android:gravity="center_vertical"
+                android:textSize="@dimen/sp18"
+                android:text="@string/settingprofile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_help"
+                android:layout_margin="@dimen/w10"
+                android:drawableLeft="@drawable/ic_help"
+                android:drawablePadding="@dimen/w20"
 
-            android:gravity="center_vertical"
-            android:textSize="@dimen/sp18"
-            android:text="@string/help"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:background="@drawable/custom_textview_click2"
-            android:id="@+id/tv_logout"
-            android:layout_margin="@dimen/w10"
-            android:drawableLeft="@drawable/ic_exit"
-            android:drawablePadding="@dimen/w20"
-            android:gravity="center_vertical"
-            android:textSize="@dimen/sp18"
-            android:text="@string/logout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+                android:gravity="center_vertical"
+                android:textSize="@dimen/sp18"
+                android:text="@string/help"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:background="@drawable/custom_textview_click2"
+                android:id="@+id/tv_logout"
+                android:layout_margin="@dimen/w10"
+                android:drawableLeft="@drawable/ic_exit"
+                android:drawablePadding="@dimen/w20"
+                android:gravity="center_vertical"
+                android:textSize="@dimen/sp18"
+                android:text="@string/logout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
     <FrameLayout
         android:layout_marginTop="@dimen/w10"
         android:id="@+id/ll_mapBox"

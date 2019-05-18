@@ -1,7 +1,7 @@
 <resources>
     <string name="facebook_app_id">708894422860851</string>
     <string name="fb_login_protocol_scheme">fb708894422860851</string>
-    <string name="app_name">LIFE STYLE</string>
+    <string name="app_name">Life Style</string>
     <string name="username">Username</string>
     <string name="login">ĐĂNG NHẬP</string>
     <string name="sigin">ĐĂNG KÝ</string>

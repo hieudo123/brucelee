@@ -12,7 +12,7 @@
         android:layout_marginRight="@dimen/w10"
         android:src="@drawable/ic_addnews"
         android:id="@+id/fbtn_addnews"
-        android:backgroundTint="@color/color_homebar"
+        android:backgroundTint="@color/login_button"
         app:layout_anchorGravity="bottom|right|end"/>
     <FrameLayout
         android:orientation="vertical"
