@@ -61,7 +61,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
-                    android:id="@+id/tv_news_detail_createdat"
+                    android:id="@+id/tv_news_detail_createdtime"
                     android:padding="@dimen/w5"
                     android:textColor="@color/text_shadow"
                     android:textSize="@dimen/w12"

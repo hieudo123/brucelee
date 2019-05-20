@@ -40,7 +40,7 @@ import java.security.NoSuchAlgorithmException
 
 public class MainActivity : BaseActivity(), View.OnClickListener {
 
-
+    lateinit var boxSearch : LinearLayout
     lateinit var bottomnav: BottomNavigationView
     //Fragment
     private val fmNews = NewsFragment()
@@ -70,16 +70,17 @@ public class MainActivity : BaseActivity(), View.OnClickListener {
     }
     fun changeFragment(item: MenuItem) {
         when (item.itemId) {
-
             R.id.navigation_home -> {
                 fm.beginTransaction().hide(active).show(fmNews).commit()
                 active = fmNews
+
                 /* fragment = NewsFragment()
                  replaceFrament(R.id.fr_container, fragment, false)*/
             }
             R.id.nav_house -> {
                 fm.beginTransaction().hide(active).show(fmHouse).commit()
                 active = fmHouse
+
                 /*  fragment = HouseFragment()
                   replaceFrament(R.id.fr_container, fragment, false)*/
             }
@@ -90,7 +91,23 @@ public class MainActivity : BaseActivity(), View.OnClickListener {
                 fm.beginTransaction().hide(active).show(fmProfile).commit()
                 active = fmProfile
                 /*   fragment = YourPageFragment()
-                   replaceFrament(R.id.fr_container, fragment, false)*/
+                  replaceFrament(R.id.fr_container, fragment, false)*/
+            }
+        }
+    }
+    fun refreshPage(item: MenuItem){
+        when (item.itemId) {
+            R.id.navigation_home -> {
+                fmNews.refresh()
+            }
+            R.id.nav_house -> {
+
+            }
+            R.id.nav_furniture -> {
+
+            }
+            R.id.nav_profile -> {
+
             }
         }
     }
@@ -104,16 +121,17 @@ public class MainActivity : BaseActivity(), View.OnClickListener {
                 changeFragment(p0)
                 return true
             }
-
+        })
+        bottomnav.setOnNavigationItemReselectedListener (object  : BottomNavigationView.OnNavigationItemReselectedListener{
+            override fun onNavigationItemReselected(p0: MenuItem) {
+                refreshPage(p0)
+            }
         })
     }
-
     override fun onClick(v: View?) {
 
     }
-
     override fun onBackPressed() {
-
         if(fmNews.isVisible){
             super.onBackPressed()
         }
@@ -127,5 +145,12 @@ public class MainActivity : BaseActivity(), View.OnClickListener {
             active = fmNews
             bottomnav.selectedItemId = R.id.navigation_home
         }
+    }
+    fun showBoxSearch() {
+        if(fmProfile.isVisible){
+            boxSearch.visibility = View.GONE
+        }
+        else
+            boxSearch.visibility = View.VISIBLE
     }
 }

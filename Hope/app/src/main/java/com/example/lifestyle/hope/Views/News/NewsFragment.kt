@@ -2,28 +2,29 @@ package com.example.lifestyle.hope.Views.News
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.os.Parcelable
 import android.support.design.widget.FloatingActionButton
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.Toast
 import com.example.lifestyle.hope.Adapter.NewsAdapter
+import com.example.lifestyle.hope.CallBack
 import com.example.lifestyle.hope.Fragment.BaseFragment
 import com.example.lifestyle.hope.Models.News
 import com.example.lifestyle.hope.R
-import com.example.lifestyle.hope.presenter.News.PreHandlerNews
-import com.example.lifestyle.hope.presenter.News.PreImpNews
-import com.github.ybq.android.spinkit.sprite.Sprite
-import com.github.ybq.android.spinkit.style.Circle
-import com.github.ybq.android.spinkit.style.WanderingCubes
+import com.example.lifestyle.hope.presenter.News.GetAllNews.PreHandlerNews
 
-class NewsFragment:BaseFragment(),View.OnClickListener,ViewHandlerGetNews {
+class NewsFragment:BaseFragment(),View.OnClickListener,ViewHandlerGetNews,CallBack {
+    override fun onClick(position: Int) {
+        var intent : Intent = Intent(context,NewsDetailActivity()::class.java)
+        intent.putExtra("News",list[position])
+        startActivity(intent)
+    }
 
 
     lateinit var floatingActionButton: FloatingActionButton
@@ -40,6 +41,7 @@ class NewsFragment:BaseFragment(),View.OnClickListener,ViewHandlerGetNews {
         recyclerView = view.findViewById(R.id.rv_news)
         init(view)
         getNews(page)
+        loadInProgress()
         return view
     }
     fun init(view:View) {
@@ -52,18 +54,19 @@ class NewsFragment:BaseFragment(),View.OnClickListener,ViewHandlerGetNews {
                 super.onScrolled(recyclerView, dx, dy)
                 if(isLastVisiable()){
                     progressBarLastPage.visibility = View.VISIBLE
-                    var handler = Handler()
-                    var runnable = Runnable {
                         getNews(page)
-                    }; handler.postDelayed(runnable, 1000)
-
                 }
             }
         })
     }
+    fun refresh(){
+        list.clear()
+        getNews(1)
+        loadInProgress()
+    }
     fun getNews(page : Int){
-        preHandlerNews = PreHandlerNews(this.context!!,this,list)
-        preHandlerNews.getAllNews(1)
+        preHandlerNews = PreHandlerNews(this.context!!, this, list)
+        preHandlerNews.getAllNews(page)
     }
     //kiểm tra vị trí scroll có phải là cuối cùng không
     fun isLastVisiable(): Boolean {
@@ -75,6 +78,7 @@ class NewsFragment:BaseFragment(),View.OnClickListener,ViewHandlerGetNews {
     fun setAdapter()
     {
         adapter = NewsAdapter(this@NewsFragment.context!!,list)
+        adapter.setClickItemListener(this@NewsFragment)
         var linearLayoutManager= LinearLayoutManager(context)
         recyclerView.layoutManager=linearLayoutManager
         recyclerView.adapter= adapter
@@ -104,6 +108,7 @@ class NewsFragment:BaseFragment(),View.OnClickListener,ViewHandlerGetNews {
          progressBar.visibility = View.VISIBLE
      }
     override fun loadOnSuccess(isFirst :Boolean){
+        page+=1
         //kiểm tra nếu nó là lần lấy data đầu tiên thì gọi là setAdapter
         if (isFirst){
             setAdapter()
@@ -111,7 +116,7 @@ class NewsFragment:BaseFragment(),View.OnClickListener,ViewHandlerGetNews {
         }
         //ngược lại lấy ra vị trí cuối và thay đổi adapter để ko bị load lại trang
         else{
-            page++
+            Log.e("PA",page.toString())
             val recyclerViewState: Parcelable = recyclerView.layoutManager!!.onSaveInstanceState()!!
             adapter.notifyDataSetChanged()
             recyclerView.layoutManager!!.onRestoreInstanceState(recyclerViewState)
@@ -121,4 +126,8 @@ class NewsFragment:BaseFragment(),View.OnClickListener,ViewHandlerGetNews {
     override fun loadOnFail(){
         Toast.makeText(context,"Kiểm tra kết nối...",Toast.LENGTH_SHORT).show()
     }
+    override fun isLastPage() {
+        progressBarLastPage.visibility = View.GONE
+    }
+
 }

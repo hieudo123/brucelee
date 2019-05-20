@@ -7,19 +7,17 @@ import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
+import android.support.design.widget.FloatingActionButton
 import android.util.Log
 import android.view.View
-import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import com.example.lifestyle.hope.R
 import java.io.InputStream
 import java.util.*
 import com.example.lifestyle.hope.Activity.BaseActivity
 import com.example.lifestyle.hope.Models.News
 import com.example.lifestyle.hope.Models.Users
-import com.example.lifestyle.hope.presenter.News.PreHandlerCreateNews
+import com.example.lifestyle.hope.presenter.News.CreateNews.PreHandlerCreateNews
 import com.example.lifestyle.hope.utils.SharePref
 import com.google.android.gms.tasks.Continuation
 import com.google.android.gms.tasks.Task
@@ -29,7 +27,7 @@ import java.io.ByteArrayOutputStream
 
 
 class CreateNewsActivity: BaseActivity(),View.OnClickListener,ViewHandlerCreateNews {
-
+    lateinit var picker: FloatingActionButton
     lateinit var users: Users
     lateinit var errorNotifi : TextView
     lateinit  var progressBar: ProgressBar
@@ -57,6 +55,7 @@ class CreateNewsActivity: BaseActivity(),View.OnClickListener,ViewHandlerCreateN
     }
     fun init()
     {
+        picker = findViewById(R.id.fbtn_picker)
         newsTitle = findViewById(R.id.et_title)
         bodyNews = findViewById(R.id.et_content)
         createdBy = findViewById(R.id.tv_createdby)
@@ -65,7 +64,7 @@ class CreateNewsActivity: BaseActivity(),View.OnClickListener,ViewHandlerCreateN
         errorNotifi = findViewById(R.id.tv_error)
         progressBar = findViewById(R.id.progress)
         share.setOnClickListener(this)
-        image.setOnClickListener(this)
+        picker.setOnClickListener(this)
     }
     fun upLoadImage(){
         calendar  = Calendar.getInstance()
@@ -103,7 +102,7 @@ class CreateNewsActivity: BaseActivity(),View.OnClickListener,ViewHandlerCreateN
     override fun onClick(v: View?) {
         when(v?.id)
         {
-            R.id.iv_news_image->{
+            R.id.fbtn_picker->{
                 var intent = Intent(Intent.ACTION_PICK)
                 intent.setType("image/*")
                 startActivityForResult(intent,1)
@@ -123,7 +122,7 @@ class CreateNewsActivity: BaseActivity(),View.OnClickListener,ViewHandlerCreateN
         }
     }
     fun postNews(){
-            preHandlerCreateNews = PreHandlerCreateNews(this,this)
+            preHandlerCreateNews = PreHandlerCreateNews(this, this)
             preHandlerCreateNews.createNews(newsTitle.text.toString(),
                     bodyNews.text.toString(),users.username,calendar.timeInMillis,imageUrl)
     }

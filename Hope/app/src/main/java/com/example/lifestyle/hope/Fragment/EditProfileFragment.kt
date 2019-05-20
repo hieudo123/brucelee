@@ -160,6 +160,7 @@ class  EditProfileFragment:BaseFragment(),View.OnClickListener,ViewHandlerUpdate
                     val bitmap: Bitmap = data.extras.get("data") as Bitmap
                     avatar.setImageBitmap(bitmap)
                     savePhoto.visibility = View.VISIBLE
+                    upLoadImage()
                 }
                 2->{
                     var uri: Uri =data.data
@@ -168,6 +169,7 @@ class  EditProfileFragment:BaseFragment(),View.OnClickListener,ViewHandlerUpdate
                     avatar.setImageBitmap(bitmap)
                     getRealPathFromURI(uri)
                     savePhoto.visibility = View.VISIBLE
+                    upLoadImage()
                 }
             }
 

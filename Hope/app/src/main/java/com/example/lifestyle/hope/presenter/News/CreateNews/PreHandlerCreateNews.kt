@@ -1,4 +1,4 @@
-package com.example.lifestyle.hope.presenter.News
+package com.example.lifestyle.hope.presenter.News.CreateNews
 
 import android.content.Context
 import android.util.Log
@@ -10,9 +10,8 @@ import com.example.lifestyle.hope.retrofit.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.*
 
-class PreHandlerCreateNews(var context: Context,var v : ViewHandlerCreateNews):PrelmCreateNews
+class PreHandlerCreateNews(var context: Context,var v : ViewHandlerCreateNews): PrelmCreateNews
 {
     override fun createNews(title: String, content: String, createdby: String, createdtime: Long, image: String) {
         v.createInProgress()

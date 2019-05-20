@@ -2,6 +2,7 @@ package com.example.lifestyle.hope.retrofit
 
 import com.example.lifestyle.hope.Models.BaseModels
 import com.example.lifestyle.hope.respone.resNews
+import com.example.lifestyle.hope.respone.resNewsDetail
 import com.example.lifestyle.hope.respone.resUser
 import retrofit2.Call
 import retrofit2.http.*
@@ -31,4 +32,6 @@ interface ApiService {
                    @Field("Image") Image:String): Call<BaseModels>
     @GET("GetAllNews.php")
     fun getAllNews (@Query ("page") page : Int) : Call<resNews>
+    @GET("GetNewsById.php")
+    fun getNewsById(@Query ("id") id : Int) : Call<resNewsDetail>
 }

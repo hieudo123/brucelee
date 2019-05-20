@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/text_dray"
+    android:id="@+id/ll_boxSearch"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <LinearLayout
+        android:layout_margin="@dimen/w5"
+        android:background="@drawable/bg_edittext"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:padding="@dimen/w5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/iv_search"
+            android:background="@drawable/icons_search_32"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:padding="@dimen/w5"
+            android:id="@+id/et_search"
+            android:layout_weight="1"
+            android:textSize="@dimen/w16"
+            android:inputType="text"
+            android:hint="@string/search"
+            android:imeOptions="actionSearch"
+            android:background="@drawable/bg_editsearch"
+            android:gravity="bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <ImageView
+            android:id="@+id/iv_cancel_fr"
+            android:visibility="visible"
+            android:background="@drawable/ic_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+</LinearLayout>

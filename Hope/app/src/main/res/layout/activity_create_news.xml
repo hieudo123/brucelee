@@ -1,12 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.design.widget.CoordinatorLayout
     android:orientation="vertical"
     android:background="@color/text_white"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <include layout="@layout/toolbar"></include>
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <include layout="@layout/toolbar">
+        </include>
+    </android.support.design.widget.AppBarLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="@dimen/w10"
+        android:layout_marginRight="@dimen/w10"
+        android:src="@drawable/ic_screenshot"
+        android:id="@+id/fbtn_picker"
+        android:backgroundTint="@color/login_button"
+        app:layout_anchorGravity="bottom|right|end"/>
     <ScrollView
         android:fillViewport="true"
         app:layout_anchorGravity="bottom"
@@ -14,7 +29,6 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
        <LinearLayout
            android:padding="@dimen/w10"
            android:orientation="vertical"
@@ -31,6 +45,18 @@
                android:id="@+id/tv_error"
                android:visibility="gone"
                android:textColor="@color/colorerror"
+               android:layout_height="wrap_content" />
+           <TextView
+               android:id="@+id/tv_sharenews"
+               android:textColor="@color/text_white"
+               android:layout_gravity="right"
+               android:layout_marginTop="@dimen/w10"
+               android:padding="@dimen/w10"
+               android:gravity="right"
+               android:background="@drawable/custom_button_login"
+               android:textSize="@dimen/w16"
+               android:text="@string/share"
+               android:layout_width="wrap_content"
                android:layout_height="wrap_content" />
            <TextView
                android:layout_marginTop="@dimen/w10"
@@ -68,25 +94,11 @@
                                android:inputType="textMultiLine" />
                <ImageView
                    android:layout_margin="@dimen/w5"
-                   android:background="@drawable/ic_image"
                    android:scaleType="centerCrop"
                    android:id="@+id/iv_news_image"
                    android:layout_width="match_parent"
-                   android:layout_height="@dimen/w200"/>
-               <TextView
-                   android:id="@+id/tv_sharenews"
-                   android:textColor="@color/text_white"
-                   android:layout_gravity="right"
-                   android:layout_marginTop="@dimen/w10"
-                   android:padding="@dimen/w10"
-                   android:gravity="right"
-                   android:background="@drawable/custom_button_login"
-                   android:textSize="@dimen/w16"
-                   android:text="@string/share"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content" />
-
+                   android:layout_height="@dimen/w248"/>
            </LinearLayout>
        </LinearLayout>
     </ScrollView>
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

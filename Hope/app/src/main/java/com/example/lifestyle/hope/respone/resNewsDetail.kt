@@ -1,8 +1,7 @@
 package com.example.lifestyle.hope.respone
 
-import android.os.Parcel
 import com.example.lifestyle.hope.Models.BaseModels
 import com.example.lifestyle.hope.Models.News
 
-class resNews(val data: List<News>, success: Int): BaseModels(success) {
+class resNewsDetail (var data : News, success: Int) : BaseModels(success) {
 }

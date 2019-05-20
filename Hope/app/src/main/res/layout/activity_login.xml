@@ -62,7 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/et_username"
             android:layout_alignStart="@+id/et_username"
-            android:layout_marginTop="@dimen/sp21"
+            android:layout_marginTop="@dimen/w16"
             android:background="@drawable/bg_edittext"
             android:drawableLeft="@drawable/ic_lock_black_24dp"
             android:hint="@string/password"
@@ -89,7 +89,7 @@
             android:layout_height="match_parent"
             android:layout_below="@+id/et_password"
             android:layout_alignStart="@+id/et_username"
-            android:layout_marginTop="@dimen/sp21"
+            android:layout_marginTop="@dimen/w16"
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
@@ -123,16 +123,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_sigin_google"
-                android:layout_margin="@dimen/sp21"
+                android:layout_margin="@dimen/w16"
                 android:layout_marginHorizontal="@dimen/w40"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
-
                     <View
                         android:layout_width="wrap_content"
                         android:layout_height="2dp"
@@ -185,7 +183,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:layout_marginTop="@dimen/sp21"
+                android:layout_marginTop="@dimen/w16"
                 android:background="@drawable/custom_buttom_loginfb"
                 android:drawableLeft="@drawable/icons_facebook_48"
                 android:gravity="center_vertical"
