@@ -7,10 +7,12 @@ import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.support.design.widget.FloatingActionButton
 import android.util.Log
 import android.view.View
 import android.widget.*
+import com.esafirm.imagepicker.features.ImagePicker
 import com.example.lifestyle.hope.R
 import java.io.InputStream
 import java.util.*
@@ -24,6 +26,7 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.UploadTask
 import java.io.ByteArrayOutputStream
+import kotlin.collections.ArrayList
 
 
 class CreateNewsActivity: BaseActivity(),View.OnClickListener,ViewHandlerCreateNews {
@@ -43,6 +46,7 @@ class CreateNewsActivity: BaseActivity(),View.OnClickListener,ViewHandlerCreateN
     var storage = FirebaseStorage.getInstance("gs://hope-1557133861463.appspot.com")
     val storageRef = storage.reference
     lateinit var preHandlerCreateNews: PreHandlerCreateNews
+     lateinit var imageList : ArrayList<String>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTitle(R.string.createnew)
@@ -55,6 +59,7 @@ class CreateNewsActivity: BaseActivity(),View.OnClickListener,ViewHandlerCreateN
     }
     fun init()
     {
+        imageList = ArrayList()
         picker = findViewById(R.id.fbtn_picker)
         newsTitle = findViewById(R.id.et_title)
         bodyNews = findViewById(R.id.et_content)
@@ -106,6 +111,8 @@ class CreateNewsActivity: BaseActivity(),View.OnClickListener,ViewHandlerCreateN
                 var intent = Intent(Intent.ACTION_PICK)
                 intent.setType("image/*")
                 startActivityForResult(intent,1)
+//                ImagePicker.create(this) // Activity or Fragment
+//                        .start();
 
             }
             R.id.tv_sharenews->{
@@ -116,8 +123,6 @@ class CreateNewsActivity: BaseActivity(),View.OnClickListener,ViewHandlerCreateN
                     errorNotifi.visibility = View.VISIBLE
                     errorNotifi.setText(getString(R.string.empty))
                 }
-
-
             }
         }
     }
@@ -135,8 +140,29 @@ class CreateNewsActivity: BaseActivity(),View.OnClickListener,ViewHandlerCreateN
             image.setImageBitmap(bitmap)
 
         }
-
+//        if (ImagePicker.shouldHandle(requestCode, resultCode, data)) {
+//            // Get a list of picked images
+//            for (i: Int in 0..ImagePicker.getImages(data).size-1) {
+//
+//                imageList.add(ImagePicker.getImages(data)[i].path)
+//
+//            }
+//            Log.e("IMAGE",imageList.toString())
+//        }
         super.onActivityResult(requestCode, resultCode, data)
+    }
+    fun getRealPathFromURI(contentUri: Uri): String {
+        val proj = arrayOf(MediaStore.Audio.Media.DATA)
+        val cursor = this.contentResolver?.query(contentUri,
+                null,
+                null,
+                null, null)
+        val column_index = cursor?.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA)
+        if (cursor != null) {
+            cursor.moveToFirst()
+        }
+        Log.e("FULLNAME", cursor!!.getString(column_index!!))
+        return cursor!!.getString(column_index!!)
     }
     override fun createInProgress() {
         progressBar.visibility = View.VISIBLE

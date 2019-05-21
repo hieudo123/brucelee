@@ -119,7 +119,8 @@ class  EditProfileFragment:BaseFragment(),View.OnClickListener,ViewHandlerUpdate
     override fun onClick(v: View?) {
        when(v?.id){
            R.id.iv_take_photo->{
-               val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+               val intent = Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+               intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE,true)
                startActivityForResult(intent,1)
            }
            R.id.iv_edit_picture->{

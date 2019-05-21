@@ -34,4 +34,15 @@ interface ApiService {
     fun getAllNews (@Query ("page") page : Int) : Call<resNews>
     @GET("GetNewsById.php")
     fun getNewsById(@Query ("id") id : Int) : Call<resNewsDetail>
+    @FormUrlEncoded
+    @POST("UpdateNews.php")
+    fun updateNews(@Field ("Title") title:String,
+                   @Field ("Content") Content: String,
+                   @Field ("Createdby") CreatedBy: String,
+                   @Field("Createdtime") CreatedTime: Long,
+                   @Field("View_counter") View_counter:Int,
+                   @Field ("Like_counter") Like_counter:Int,
+                   @Field("Id") Id:Int,
+                   @Field("Image") Image:String): Call<resNewsDetail>
+
 }

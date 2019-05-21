@@ -27,6 +27,8 @@
             android:layout_weight="1"
             android:textSize="@dimen/w16"
             android:inputType="text"
+            android:textColorHint="@color/colorPrimaryDark"
+            android:textColor="@color/colorPrimaryDark"
             android:hint="@string/search"
             android:imeOptions="actionSearch"
             android:background="@drawable/bg_editsearch"

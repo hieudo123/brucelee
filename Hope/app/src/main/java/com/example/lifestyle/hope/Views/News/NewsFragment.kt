@@ -130,4 +130,7 @@ class NewsFragment:BaseFragment(),View.OnClickListener,ViewHandlerGetNews,CallBa
         progressBarLastPage.visibility = View.GONE
     }
 
+    override fun onResume() {
+        super.onResume()
+    }
 }
