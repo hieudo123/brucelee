@@ -10,14 +10,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.Spinner
 import android.widget.Toast
 import com.example.lifestyle.hope.Adapter.HousesAdapter
 import com.example.lifestyle.hope.Adapter.NewsAdapter
 import com.example.lifestyle.hope.Fragment.BaseFragment
+import com.example.lifestyle.hope.Models.Area
 import com.example.lifestyle.hope.R
+import com.example.lifestyle.hope.Views.Area.ViewHandlerGetAreas
+import com.example.lifestyle.hope.presenter.Area.PreHandlerGetAreas
 
-class HouseFragment:BaseFragment() {
+class HouseFragment:BaseFragment(),ViewHandlerGetAreas {
+
+
     var list= ArrayList<String>()
+    var listArea = ArrayList<Area>()
+    lateinit var preHandlerGetAreas: PreHandlerGetAreas
+
     lateinit var progressBar: ProgressBar
     lateinit var progressBarLastPage : ProgressBar
     lateinit var adapter:HousesAdapter
@@ -36,7 +45,6 @@ class HouseFragment:BaseFragment() {
         progressBar = v.findViewById(R.id.progress)
         progressBarLastPage = v.findViewById(R.id.prb_last_page)
         recyclerView = v.findViewById(R.id.rv_houses)
-
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener(){
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -50,6 +58,10 @@ class HouseFragment:BaseFragment() {
                 }
             }
         })
+    }
+    fun getAreas(){
+        preHandlerGetAreas = PreHandlerGetAreas(this.context!!,this,listArea)
+        preHandlerGetAreas.getAreas()
     }
     fun loadAllHouse(){
         for(i:Int in 0..10-1)
@@ -92,6 +104,17 @@ class HouseFragment:BaseFragment() {
     }
     override fun loadOnFail(){
         Toast.makeText(context,"Kiểm tra kết nối...", Toast.LENGTH_SHORT).show()
+    }
+    override fun getOnSuccess() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun getInProgress() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun getOnFail() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
 }

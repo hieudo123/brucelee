@@ -70,7 +70,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="10"
-                        android:drawableRight="@drawable/ic_comment"/>
+                        android:drawableRight="@drawable/ic_comment_black_24dp"/>
                     <TextView
                         android:layout_margin="@dimen/w5"
                         android:id="@+id/tv_view_counter"
@@ -78,7 +78,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="10"
-                        android:drawableRight="@drawable/icons_eye_16"/>
+                        android:drawableRight="@drawable/ic_eye"/>
                 </LinearLayout>
                 <TextView
                     android:layout_margin="@dimen/w5"

@@ -1,6 +1,7 @@
 package com.example.lifestyle.hope.retrofit
 
 import com.example.lifestyle.hope.Models.BaseModels
+import com.example.lifestyle.hope.respone.resArea
 import com.example.lifestyle.hope.respone.resNews
 import com.example.lifestyle.hope.respone.resNewsDetail
 import com.example.lifestyle.hope.respone.resUser
@@ -44,5 +45,6 @@ interface ApiService {
                    @Field ("Like_counter") Like_counter:Int,
                    @Field("Id") Id:Int,
                    @Field("Image") Image:String): Call<resNewsDetail>
-
+    @GET("GetArea.php")
+    fun getArea():Call<resArea>
 }

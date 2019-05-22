@@ -7,6 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity.MainActivity">
-   <include layout="@layout/activity_home">
+   <include
+       layout="@layout/activity_home">
    </include>
 </android.support.v4.widget.DrawerLayout>

@@ -9,6 +9,9 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.support.design.widget.FloatingActionButton
+import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
 import android.widget.*
@@ -17,15 +20,19 @@ import com.example.lifestyle.hope.R
 import java.io.InputStream
 import java.util.*
 import com.example.lifestyle.hope.Activity.BaseActivity
+import com.example.lifestyle.hope.Adapter.ImageAdapter
+import com.example.lifestyle.hope.Adapter.NewsAdapter
 import com.example.lifestyle.hope.Models.News
 import com.example.lifestyle.hope.Models.Users
 import com.example.lifestyle.hope.presenter.News.CreateNews.PreHandlerCreateNews
 import com.example.lifestyle.hope.utils.SharePref
 import com.google.android.gms.tasks.Continuation
+import com.google.android.gms.tasks.OnSuccessListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.UploadTask
 import java.io.ByteArrayOutputStream
+import java.io.File
 import kotlin.collections.ArrayList
 
 
@@ -34,7 +41,8 @@ class CreateNewsActivity: BaseActivity(),View.OnClickListener,ViewHandlerCreateN
     lateinit var users: Users
     lateinit var errorNotifi : TextView
     lateinit  var progressBar: ProgressBar
-    var imageUrl = ""
+    lateinit var imageUrl  :ArrayList<String>
+    lateinit var listPicker : RecyclerView
     lateinit var newsTitle: TextView
     lateinit var bodyNews: TextView
     lateinit var news : News
@@ -43,10 +51,11 @@ class CreateNewsActivity: BaseActivity(),View.OnClickListener,ViewHandlerCreateN
     lateinit var share:TextView
     var position:Int =0
     lateinit var calendar : Calendar
+    lateinit var adapter : ImageAdapter
     var storage = FirebaseStorage.getInstance("gs://hope-1557133861463.appspot.com")
     val storageRef = storage.reference
     lateinit var preHandlerCreateNews: PreHandlerCreateNews
-     lateinit var imageList : ArrayList<String>
+    lateinit var imageList : ArrayList<String>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTitle(R.string.createnew)
@@ -59,6 +68,7 @@ class CreateNewsActivity: BaseActivity(),View.OnClickListener,ViewHandlerCreateN
     }
     fun init()
     {
+        imageUrl = ArrayList()
         imageList = ArrayList()
         picker = findViewById(R.id.fbtn_picker)
         newsTitle = findViewById(R.id.et_title)
@@ -68,8 +78,39 @@ class CreateNewsActivity: BaseActivity(),View.OnClickListener,ViewHandlerCreateN
         image = findViewById(R.id.iv_news_image)
         errorNotifi = findViewById(R.id.tv_error)
         progressBar = findViewById(R.id.progress)
+        listPicker = findViewById(R.id.rv_image)
         share.setOnClickListener(this)
         picker.setOnClickListener(this)
+    }
+    override fun onClick(v: View?) {
+        when(v?.id)
+        {
+            R.id.fbtn_picker->{
+//                var intent = Intent(Intent.ACTION_PICK)
+//                intent.setType("image/*")
+//                startActivityForResult(intent,1)
+                ImagePicker.create(this) // Activity or Fragment
+                        .start();
+
+            }
+            R.id.tv_sharenews->{
+                uploadFromLocalFile()
+//                if(newsTitle.text.isNotEmpty() && bodyNews.text.isNotEmpty()){
+//                    upLoadImage()
+//                }
+//                else{
+//                    errorNotifi.visibility = View.VISIBLE
+//                    errorNotifi.setText(getString(R.string.empty))
+//                }
+            }
+        }
+    }
+    fun setAdapter(){
+        adapter = ImageAdapter(imageList)
+
+        var GridLayoutManager :GridLayoutManager = GridLayoutManager(this,3)
+        listPicker.layoutManager = GridLayoutManager
+        listPicker.adapter= adapter
     }
     fun upLoadImage(){
         calendar  = Calendar.getInstance()
@@ -84,7 +125,6 @@ class CreateNewsActivity: BaseActivity(),View.OnClickListener,ViewHandlerCreateN
         var uploadTask = mountainsRef.putBytes(data)
         uploadTask.addOnFailureListener {
         }.addOnSuccessListener {
-
             val urlTask = uploadTask.continueWithTask(Continuation<UploadTask.TaskSnapshot, Task<Uri>> { task ->
                 if (!task.isSuccessful) {
                     task.exception?.let {
@@ -96,7 +136,7 @@ class CreateNewsActivity: BaseActivity(),View.OnClickListener,ViewHandlerCreateN
                 if (task.isSuccessful) {
                     val downloadUri = task.result
                     Log.e("LLN",downloadUri.toString())
-                    imageUrl = downloadUri.toString()
+                    imageUrl.add(downloadUri.toString())
                     postNews()
                 } else {
                     createOnFail()
@@ -104,51 +144,57 @@ class CreateNewsActivity: BaseActivity(),View.OnClickListener,ViewHandlerCreateN
             }
         }
     }
-    override fun onClick(v: View?) {
-        when(v?.id)
-        {
-            R.id.fbtn_picker->{
-                var intent = Intent(Intent.ACTION_PICK)
-                intent.setType("image/*")
-                startActivityForResult(intent,1)
-//                ImagePicker.create(this) // Activity or Fragment
-//                        .start();
+    fun uploadFromLocalFile(){
+       for(i: Int in 0..imageList.size-1){
+           var file = Uri.fromFile(File(imageList[i]))
+           val riversRef = storageRef.child("images/${file.lastPathSegment.replace(" ","")}")
+           val uploadTask:UploadTask
+           uploadTask = riversRef.putFile(file)
+           uploadTask.addOnFailureListener {
+           }.addOnSuccessListener {
+               val urlTask = uploadTask.continueWithTask(Continuation<UploadTask.TaskSnapshot, Task<Uri>> { task ->
+                   if (!task.isSuccessful) {
+                       task.exception?.let {
+                           throw it
+                       }
+                   }
+                   return@Continuation riversRef.downloadUrl
+               }).addOnCompleteListener { task ->
+                   if (task.isSuccessful) {
+                       val downloadUri = task.result
+                       Log.e("LLN",downloadUri.toString())
+                       imageUrl.add(downloadUri.toString())
 
-            }
-            R.id.tv_sharenews->{
-                if(newsTitle.text.isNotEmpty() && bodyNews.text.isNotEmpty()){
-                    upLoadImage()
-                }
-                else{
-                    errorNotifi.visibility = View.VISIBLE
-                    errorNotifi.setText(getString(R.string.empty))
-                }
-            }
-        }
+                   } else {
+                       createOnFail()
+                   }
+               }
+           }
+       }
     }
+
     fun postNews(){
             preHandlerCreateNews = PreHandlerCreateNews(this, this)
             preHandlerCreateNews.createNews(newsTitle.text.toString(),
-                    bodyNews.text.toString(),users.username,calendar.timeInMillis,imageUrl)
+                    bodyNews.text.toString(),users.username,calendar.timeInMillis,imageUrl[0])
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if(requestCode == 1 && resultCode == Activity.RESULT_OK && data!= null)
-        {
-            var uri:Uri =data.data
-            var inputStream:InputStream = getContentResolver().openInputStream(uri)
-            var bitmap:Bitmap =BitmapFactory.decodeStream(inputStream)
-            image.setImageBitmap(bitmap)
-
-        }
-//        if (ImagePicker.shouldHandle(requestCode, resultCode, data)) {
-//            // Get a list of picked images
-//            for (i: Int in 0..ImagePicker.getImages(data).size-1) {
+//        if(requestCode == 1 && resultCode == Activity.RESULT_OK && data!= null)
+//        {
+//            var uri:Uri =data.data
+//            var inputStream:InputStream = getContentResolver().openInputStream(uri)
+//            var bitmap:Bitmap =BitmapFactory.decodeStream(inputStream)
+//            image.setImageBitmap(bitmap)
 //
-//                imageList.add(ImagePicker.getImages(data)[i].path)
-//
-//            }
-//            Log.e("IMAGE",imageList.toString())
 //        }
+        if (ImagePicker.shouldHandle(requestCode, resultCode, data)) {
+            // Get a list of picked images
+            for (i: Int in 0..ImagePicker.getImages(data).size-1) {
+                imageList.add(ImagePicker.getImages(data)[i].path)
+            }
+            setAdapter()
+            Log.e("IMAGE",imageList.toString())
+        }
         super.onActivityResult(requestCode, resultCode, data)
     }
     fun getRealPathFromURI(contentUri: Uri): String {

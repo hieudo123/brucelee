@@ -23,7 +23,7 @@ class PreHandlerLogin(var context: Context, var user: Users?, var v: ViewHandler
     lateinit var sharePref:SharePref
     override fun getLogin(phone: String, password: String) {
         val requestQueue: RequestQueue = Volley.newRequestQueue(context)
-        var url: String = "https://androidwebsv.000webhostapp.com/hope/Login.php"
+            var url: String = "https://androidwebsv.000webhostapp.com/hope/Login.php"
         val stringRequest = object : StringRequest(Request.Method.POST, url,
                 Response.Listener<String> { response ->
                     Log.e("GetString", response.toString())

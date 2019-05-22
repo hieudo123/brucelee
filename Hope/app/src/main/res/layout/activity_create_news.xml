@@ -61,7 +61,7 @@
            <TextView
                android:layout_marginTop="@dimen/w10"
                android:id="@+id/tv_createdby"
-               android:textSize="@dimen/w16"
+               android:textSize="@dimen/w20"
                android:text="@string/createdby"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content" />
@@ -92,6 +92,11 @@
                    android:scrollbars="vertical"
                    android:nestedScrollingEnabled="true"
                                android:inputType="textMultiLine" />
+               <android.support.v7.widget.RecyclerView
+                   android:id="@+id/rv_image"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content">
+               </android.support.v7.widget.RecyclerView>
                <ImageView
                    android:layout_margin="@dimen/w5"
                    android:scaleType="centerCrop"
