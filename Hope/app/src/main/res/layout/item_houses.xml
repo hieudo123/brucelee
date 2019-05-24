@@ -10,24 +10,12 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <!--<TextView-->
-            <!--android:textColor="@color/text_white"-->
-            <!--android:background="@color/bg_sigin"-->
-            <!--android:padding="@dimen/w5"-->
-
-            <!--android:id="@+id/tv_createdby"-->
-            <!--android:textSize="@dimen/w16"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="@string/createdby"/>-->
         <ImageView
-
             android:id="@+id/iv_news"
-            android:scaleType="centerCrop"
+            android:scaleType="fitXY"
             android:layout_width="match_parent"
-            android:src="@drawable/background2"
-            android:layout_height="@dimen/w248"/>
-
+            android:src="@drawable/background01"
+            android:layout_height="@dimen/w200"/>
         <LinearLayout
             android:padding="@dimen/w10"
             android:layout_gravity="bottom"
@@ -42,42 +30,66 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/price"/>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_marginTop="@dimen/w5"
+                    android:id="@+id/tv_price_acreage"
+                    android:textSize="@dimen/w20"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/acreage"/>
+                <TextView
+                    android:drawablePadding="@dimen/w10"
+                    android:drawableLeft="@drawable/ic_door"
+                    android:layout_marginTop="@dimen/w5"
+                    android:id="@+id/tv_rooms"
+                    android:textSize="@dimen/w20"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/room"/>
+                <TextView
+                    android:drawablePadding="@dimen/w10"
+                    android:drawableLeft="@drawable/ic_bath"
+                    android:layout_marginTop="@dimen/w5"
+                    android:id="@+id/tv_bathrooms"
+                    android:textSize="@dimen/w20"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bathroom"/>
+            </LinearLayout>
             <TextView
+                android:drawablePadding="@dimen/w5"
+                android:drawableLeft="@drawable/ic_location_on_black_24dp"
                 android:textStyle="bold"
-                android:layout_marginTop="@dimen/w5"
+                android:layout_marginTop="@dimen/w10"
                 android:id="@+id/tv_address_house"
                 android:textSize="@dimen/w16"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/address"/>
-
             <View
                 android:layout_marginTop="@dimen/w10"
                 android:background="@color/login_button"
                 android:layout_width="match_parent"
-                android:layout_height="1dp">
+                android:layout_height="@dimen/w2">
             </View>
-            <LinearLayout
-                android:layout_marginTop="@dimen/w5"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:textColor="@color/colorerror"
-                    android:id="@+id/tv_area"
-                    android:textSize="@dimen/w15"
-                    android:layout_weight="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:gravity="right"
-                    android:textSize="@dimen/w15"
-                    android:layout_weight="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="22:00 15/4/2019"/>
-            </LinearLayout>
+            <TextView
+                android:layout_gravity="right"
+                android:textSize="@dimen/w15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="22:00 15/4/2019"/>
         </LinearLayout>
     </LinearLayout>
 </android.support.v7.widget.CardView>
+
 

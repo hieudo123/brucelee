@@ -60,4 +60,8 @@
     <string name="passwordValidat">Tối thiểu 8 kí tự</string>
     <string name="isEmail">Vui lòng nhập đúng định dạng email</string>
     <string name="search">Tìm kiếm...</string>
+    <string name="acreage">Diện tích</string>
+    <string name="room">phòng</string>
+    <string name="bathroom">phòng tắm</string>
+    <string name="calendar">Lịch hẹn</string>
 </resources>

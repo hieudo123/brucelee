@@ -22,40 +22,51 @@ import java.util.*
 import com.example.lifestyle.hope.Activity.BaseActivity
 import com.example.lifestyle.hope.Adapter.ImageAdapter
 import com.example.lifestyle.hope.Adapter.NewsAdapter
+import com.example.lifestyle.hope.Models.BaseModels
 import com.example.lifestyle.hope.Models.News
 import com.example.lifestyle.hope.Models.Users
+import com.example.lifestyle.hope.Views.UpLoadToFireBase
 import com.example.lifestyle.hope.presenter.News.CreateNews.PreHandlerCreateNews
+import com.example.lifestyle.hope.presenter.News.CreateNews.PreHandlerCreateNewsV2
+import com.example.lifestyle.hope.respone.test
+import com.example.lifestyle.hope.retrofit.ApiService
+import com.example.lifestyle.hope.retrofit.Config
+import com.example.lifestyle.hope.retrofit.RetrofitClient
 import com.example.lifestyle.hope.utils.SharePref
 import com.google.android.gms.tasks.Continuation
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.UploadTask
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.ByteArrayOutputStream
 import java.io.File
 import kotlin.collections.ArrayList
 
 
-class CreateNewsActivity: BaseActivity(),View.OnClickListener,ViewHandlerCreateNews {
+class CreateNewsActivity: BaseActivity(),View.OnClickListener,ViewHandlerCreateNews,UpLoadToFireBase {
+
+    var storage = FirebaseStorage.getInstance("gs://hope-1557133861463.appspot.com")
     lateinit var picker: FloatingActionButton
     lateinit var users: Users
     lateinit var errorNotifi : TextView
     lateinit  var progressBar: ProgressBar
-    lateinit var imageUrl  :ArrayList<String>
     lateinit var listPicker : RecyclerView
     lateinit var newsTitle: TextView
     lateinit var bodyNews: TextView
     lateinit var news : News
     lateinit var image:ImageView
-    lateinit var createdBy:TextView
     lateinit var share:TextView
     var position:Int =0
     lateinit var calendar : Calendar
     lateinit var adapter : ImageAdapter
-    var storage = FirebaseStorage.getInstance("gs://hope-1557133861463.appspot.com")
     val storageRef = storage.reference
     lateinit var preHandlerCreateNews: PreHandlerCreateNews
+    lateinit var preHandlerCreateNewsV2: PreHandlerCreateNewsV2
     lateinit var imageList : ArrayList<String>
+    lateinit var imageUrl  :ArrayList<String>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTitle(R.string.createnew)
@@ -73,7 +84,6 @@ class CreateNewsActivity: BaseActivity(),View.OnClickListener,ViewHandlerCreateN
         picker = findViewById(R.id.fbtn_picker)
         newsTitle = findViewById(R.id.et_title)
         bodyNews = findViewById(R.id.et_content)
-        createdBy = findViewById(R.id.tv_createdby)
         share = findViewById(R.id.tv_sharenews)
         image = findViewById(R.id.iv_news_image)
         errorNotifi = findViewById(R.id.tv_error)
@@ -94,24 +104,29 @@ class CreateNewsActivity: BaseActivity(),View.OnClickListener,ViewHandlerCreateN
 
             }
             R.id.tv_sharenews->{
-                uploadFromLocalFile()
-//                if(newsTitle.text.isNotEmpty() && bodyNews.text.isNotEmpty()){
-//                    upLoadImage()
-//                }
-//                else{
-//                    errorNotifi.visibility = View.VISIBLE
-//                    errorNotifi.setText(getString(R.string.empty))
-//                }
+                if(newsTitle.text.isNotEmpty() && bodyNews.text.isNotEmpty()){
+                    uploadFromLocalFile()
+                }
+                else{
+                    errorNotifi.visibility = View.VISIBLE
+                    errorNotifi.setText(getString(R.string.empty))
+                }
             }
         }
     }
     fun setAdapter(){
         adapter = ImageAdapter(imageList)
-
         var GridLayoutManager :GridLayoutManager = GridLayoutManager(this,3)
         listPicker.layoutManager = GridLayoutManager
         listPicker.adapter= adapter
     }
+    fun getData(){
+        val sharePref = SharePref(this)
+        if(sharePref.user != null){
+            users = sharePref.user
+        }
+    }
+    //chỉ upload 1 hình duy nhất
     fun upLoadImage(){
         calendar  = Calendar.getInstance()
         createInProgress()
@@ -144,7 +159,9 @@ class CreateNewsActivity: BaseActivity(),View.OnClickListener,ViewHandlerCreateN
             }
         }
     }
+    //upload 1 cái mảng nhiều hình lên firebase
     fun uploadFromLocalFile(){
+       firebaseInProgress()
        for(i: Int in 0..imageList.size-1){
            var file = Uri.fromFile(File(imageList[i]))
            val riversRef = storageRef.child("images/${file.lastPathSegment.replace(" ","")}")
@@ -161,23 +178,41 @@ class CreateNewsActivity: BaseActivity(),View.OnClickListener,ViewHandlerCreateN
                    return@Continuation riversRef.downloadUrl
                }).addOnCompleteListener { task ->
                    if (task.isSuccessful) {
-                       val downloadUri = task.result
+                       var downloadUri = task.result
                        Log.e("LLN",downloadUri.toString())
                        imageUrl.add(downloadUri.toString())
-
+                       firebaseOnSuccess()
                    } else {
-                       createOnFail()
+                       firebaseOnFail()
                    }
                }
            }
        }
     }
-
     fun postNews(){
             preHandlerCreateNews = PreHandlerCreateNews(this, this)
             preHandlerCreateNews.createNews(newsTitle.text.toString(),
                     bodyNews.text.toString(),users.username,calendar.timeInMillis,imageUrl[0])
     }
+//    fun test(){
+//        calendar  = Calendar.getInstance()
+//        val retrofit = RetrofitClient.getClient(Config.URL)
+//        val apiService = retrofit!!.create(ApiService::class.java)
+//        val call : Call<BaseModels> = apiService.test(imageUrl,newsTitle.text.toString(),
+//                bodyNews.text.toString(),users.id,calendar.timeInMillis)
+//        call.enqueue(object : Callback<BaseModels>{
+//            override fun onFailure(call: Call<BaseModels>?, t: Throwable?) {
+//                Log.e("LLL",t.toString())
+//            }
+//
+//            override fun onResponse(call: Call<BaseModels>?, response: Response<BaseModels>?) {
+//                if(response!= null){
+//                    val jsonRequest = response.body()
+//                    Log.e("LLL",response.body().success.toString())
+//                }
+//            }
+//        })
+//    }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 //        if(requestCode == 1 && resultCode == Activity.RESULT_OK && data!= null)
 //        {
@@ -214,23 +249,35 @@ class CreateNewsActivity: BaseActivity(),View.OnClickListener,ViewHandlerCreateN
         progressBar.visibility = View.VISIBLE
         errorNotifi.visibility = View.GONE
     }
-
     override fun createOnSuccess() {
         progressBar.visibility = View.GONE
         Toast.makeText(this, "Đăng thành công !", Toast.LENGTH_SHORT).show()
         errorNotifi.visibility = View.GONE
     }
-
     override fun createOnFail() {
         progressBar.visibility = View.GONE
         Toast.makeText(this,"Đăng thất bại !",Toast.LENGTH_SHORT).show()
         errorNotifi.visibility = View.GONE
     }
-    fun getData(){
-        val sharePref = SharePref(this)
-        if(sharePref.user != null){
-            users = sharePref.user
-            createdBy.setText(users.username)
+    override fun firebaseInProgress() {
+        progressBar.visibility = View.VISIBLE
+        errorNotifi.visibility = View.GONE
+    }
+
+    override fun firebaseOnSuccess() {
+        if(imageUrl.size == imageList.size){
+            calendar  = Calendar.getInstance()
+            preHandlerCreateNewsV2 = PreHandlerCreateNewsV2(this)
+            preHandlerCreateNewsV2.createNews(newsTitle.text.toString(),
+                    bodyNews.text.toString(),users.id,calendar.timeInMillis,imageUrl)
         }
+        progressBar.visibility = View.GONE
+        errorNotifi.visibility = View.GONE
+    }
+
+    override fun firebaseOnFail() {
+        progressBar.visibility = View.GONE
+        Toast.makeText(this,"Đăng thất bại !",Toast.LENGTH_SHORT).show()
+        errorNotifi.visibility = View.GONE
     }
 }

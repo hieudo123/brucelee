@@ -17,7 +17,7 @@ class News(
         @Expose
         @SerializedName("Content") var content:String,
         @Expose
-        @SerializedName("Created_by")var created_by:String,
+        @SerializedName("Created_by")var created_by:Int,
         @Expose
         @SerializedName("Created_time") var created_time:Long,
         @Expose

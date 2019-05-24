@@ -14,7 +14,7 @@
         android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/iv_news"
-            android:scaleType="centerCrop"
+            android:scaleType="fitXY"
             android:layout_width="match_parent"
             android:src="@drawable/ic_image"
             android:layout_height="250dp"/>
@@ -23,14 +23,6 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <TextView
-                android:layout_marginTop="@dimen/w5"
-                android:id="@+id/tv_createdby"
-                android:textSize="@dimen/w20"
-                android:textColor="@color/login_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="New House"/>
             <TextView
                 android:textColor="@color/colorPrimaryDark"
                 android:layout_marginTop="@dimen/w5"

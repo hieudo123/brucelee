@@ -19,7 +19,7 @@
         android:icon="@drawable/ic_sofa"
         android:title="@string/furniture" />
     <item
-        android:icon="@drawable/ic_account_circle_black_24dp"
+        android:icon="@drawable/ic_perm"
         android:id="@+id/nav_profile"
         android:title="@string/me" />
 </menu>

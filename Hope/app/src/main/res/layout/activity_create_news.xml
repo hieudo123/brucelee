@@ -58,13 +58,6 @@
                android:text="@string/share"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content" />
-           <TextView
-               android:layout_marginTop="@dimen/w10"
-               android:id="@+id/tv_createdby"
-               android:textSize="@dimen/w20"
-               android:text="@string/createdby"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content" />
            <LinearLayout
                android:orientation="vertical"
                android:layout_marginTop="@dimen/w10"

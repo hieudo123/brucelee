@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Spinner
 import android.widget.Toast
+import com.example.lifestyle.hope.Adapter.AdapterArea
 import com.example.lifestyle.hope.Adapter.HousesAdapter
 import com.example.lifestyle.hope.Adapter.NewsAdapter
 import com.example.lifestyle.hope.Fragment.BaseFragment
@@ -19,17 +20,20 @@ import com.example.lifestyle.hope.Models.Area
 import com.example.lifestyle.hope.R
 import com.example.lifestyle.hope.Views.Area.ViewHandlerGetAreas
 import com.example.lifestyle.hope.presenter.Area.PreHandlerGetAreas
+import java.lang.reflect.AccessibleObject.setAccessible
+
+
 
 class HouseFragment:BaseFragment(),ViewHandlerGetAreas {
 
-
+    lateinit var spinner: Spinner
     var list= ArrayList<String>()
     var listArea = ArrayList<Area>()
     lateinit var preHandlerGetAreas: PreHandlerGetAreas
-
     lateinit var progressBar: ProgressBar
     lateinit var progressBarLastPage : ProgressBar
     lateinit var adapter:HousesAdapter
+    lateinit var adapterArea: AdapterArea
     lateinit var recyclerView: RecyclerView
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view : View = inflater.inflate(R.layout.fragment_houses,container,false)
@@ -39,9 +43,27 @@ class HouseFragment:BaseFragment(),ViewHandlerGetAreas {
             loadInProgress()
             loadAllHouse()
         };hanlder.postDelayed(runnable,1000)
+        getAreas()
         return view
     }
     fun init(v:View) {
+        spinner = v.findViewById(R.id.sp_spinner)
+        try {
+            val popup = Spinner::class.java.getDeclaredField("mPopup")
+            popup.isAccessible = true
+
+            // Get private mPopup member variable and try cast to ListPopupWindow
+            val popupWindow = popup.get(spinner) as android.widget.ListPopupWindow
+
+            // Set popupWindow height to 500px
+            popupWindow.height = dp2px(248)
+        } catch (e: NoClassDefFoundError) {
+            // silently fail...
+        } catch (e: ClassCastException) {
+        } catch (e: NoSuchFieldException) {
+        } catch (e: IllegalAccessException) {
+        }
+
         progressBar = v.findViewById(R.id.progress)
         progressBarLastPage = v.findViewById(R.id.prb_last_page)
         recyclerView = v.findViewById(R.id.rv_houses)
@@ -102,19 +124,24 @@ class HouseFragment:BaseFragment(),ViewHandlerGetAreas {
         }
         progressBarLastPage.visibility = View.GONE
     }
+    protected fun dp2px(dp: Int): Int {
+        val scale = resources.displayMetrics.density
+        return (dp * scale + 0.5f).toInt()
+    }
     override fun loadOnFail(){
         Toast.makeText(context,"Kiểm tra kết nối...", Toast.LENGTH_SHORT).show()
     }
     override fun getOnSuccess() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        adapterArea = AdapterArea(listArea, this.activity!!)
+        spinner.adapter = adapterArea
     }
 
     override fun getInProgress() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
     override fun getOnFail() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
 }

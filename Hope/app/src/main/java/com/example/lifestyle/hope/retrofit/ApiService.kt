@@ -1,13 +1,11 @@
 package com.example.lifestyle.hope.retrofit
 
 import com.example.lifestyle.hope.Models.BaseModels
-import com.example.lifestyle.hope.respone.resArea
-import com.example.lifestyle.hope.respone.resNews
-import com.example.lifestyle.hope.respone.resNewsDetail
-import com.example.lifestyle.hope.respone.resUser
+import com.example.lifestyle.hope.respone.*
 import retrofit2.Call
 import retrofit2.http.*
 import java.util.*
+import kotlin.collections.ArrayList
 
 interface ApiService {
     @FormUrlEncoded
@@ -39,7 +37,7 @@ interface ApiService {
     @POST("UpdateNews.php")
     fun updateNews(@Field ("Title") title:String,
                    @Field ("Content") Content: String,
-                   @Field ("Createdby") CreatedBy: String,
+                   @Field ("Createdby") CreatedBy: Int,
                    @Field("Createdtime") CreatedTime: Long,
                    @Field("View_counter") View_counter:Int,
                    @Field ("Like_counter") Like_counter:Int,
@@ -47,4 +45,11 @@ interface ApiService {
                    @Field("Image") Image:String): Call<resNewsDetail>
     @GET("GetArea.php")
     fun getArea():Call<resArea>
+    @FormUrlEncoded
+    @POST("TestPostArray.php")
+    fun test(@Field("Image[]") image: List<String>,
+             @Field ("Title") title:String,
+             @Field ("Content") Content: String,
+             @Field ("Createdby") CreatedBy: Int,
+             @Field("Createdtime") CreatedTime: Long):Call<BaseModels>
 }

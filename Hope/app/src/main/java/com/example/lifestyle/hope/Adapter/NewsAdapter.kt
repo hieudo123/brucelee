@@ -44,7 +44,6 @@ class NewsAdapter(var context: Context,var list:ArrayList<News>):RecyclerView.Ad
         holder.likeCounter.setText(list[i].like_count.toString())
         holder.viewCounter.setText(list[i].view_count.toString())
         holder.title.setText(list[i].title)
-        holder.createdBy.setText(list[i].created_by)
         Picasso.get().load(list[i].image).error(R.drawable.ic_image).into(holder.image)
         holder.itemView.setOnClickListener {
             if (callback!=null){
@@ -55,7 +54,6 @@ class NewsAdapter(var context: Context,var list:ArrayList<News>):RecyclerView.Ad
     }
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var createdTime : TextView = itemView.findViewById(R.id.tv_createdTime)
-        var createdBy : TextView = itemView.findViewById(R.id.tv_createdby)
         var image : ImageView = itemView.findViewById(R.id.iv_news)
         var title : TextView = itemView.findViewById(R.id.tv_news_title)
         var viewCounter : TextView = itemView.findViewById(R.id.tv_view_counter)
