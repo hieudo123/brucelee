@@ -19,6 +19,7 @@ import com.example.lifestyle.hope.R
 import com.example.lifestyle.hope.Views.Users.SiginUp.SiginUp
 import com.example.lifestyle.hope.presenter.Users.Login.PreHandlerLogin
 import android.widget.ProgressBar
+import com.example.lifestyle.hope.Fragment.CautionDialogFragment
 import com.example.lifestyle.hope.Models.FacebookLogin
 import com.example.lifestyle.hope.utils.SharePref
 import com.facebook.*
@@ -206,8 +207,16 @@ class LoginActivity : AppCompatActivity(), ViewHandlerLogin, View.OnClickListene
         finish()
     }
     override fun LoginOnFail(mess: String) {
-        Toast.makeText(this, mess, Toast.LENGTH_SHORT).show()
+       showDialog(mess)
         progressBar.visibility = View.GONE
 
+    }
+    fun showDialog(mess:String){
+        var dialogLoginFragment: CautionDialogFragment = CautionDialogFragment()
+        val args  = Bundle()
+        args.putString("title",mess)
+        dialogLoginFragment.arguments = args
+        dialogLoginFragment.show(supportFragmentManager,null)
+        dialogLoginFragment.isCancelable =false
     }
 }

@@ -63,6 +63,8 @@ class  EditProfileFragment:BaseFragment(),View.OnClickListener,ViewHandlerUpdate
     lateinit var sharePref :SharePref
     lateinit var username : EditText
     lateinit var takePhoto : ImageView
+    var progressDialogFragment : ProgressDialogFragment = ProgressDialogFragment()
+    //Handler
     lateinit var preHandlerUpdateProfile: PreHandlerUpdateProfile
     lateinit var preHandlerChangePassword: PreHandlerChangePassword
     var REQUESTCODE: Int = 0
@@ -225,18 +227,37 @@ class  EditProfileFragment:BaseFragment(),View.OnClickListener,ViewHandlerUpdate
             user.gender = 0
     }
     fun checkIsEmptyForm(){
-        if(username.text.isEmpty() ||
-                email.text.isEmpty() ||
-                phonNumber.text.isEmpty() ||
-                address.text.isEmpty()&& isValidEmail(email.text)){
-            isEmptyForm.setText(getText(R.string.empty))
-            isEmptyForm.visibility = View.VISIBLE
-        }
+        if (username.text.isEmpty())
+            showDialog(getString(R.string.emptyUsername))
+        else if (address.text.isEmpty())
+            showDialog(getString(R.string.emptyAdress))
+        else if (phonNumber.text.isEmpty() )
+            showDialog(getString(R.string.emptyPhone))
+        else if (phonNumber.text.length < 10)
+            showDialog(getString(R.string.emptyPhone1))
+        else if(isValidEmail(email.text) == false)
+            showDialog(getString(R.string.emptyEmail))
         else{
             setData()
             updateProfile()
         }
 
+    }
+    fun showDialog(mess:String){
+        var dialogLoginFragment:CautionDialogFragment =CautionDialogFragment()
+        val args  = Bundle()
+        args.putString("title",mess)
+        dialogLoginFragment.arguments = args
+        dialogLoginFragment.show(this.fragmentManager,null)
+        dialogLoginFragment.isCancelable =false
+    }
+    fun showProgressDialog(isProgress:Boolean){
+        if (isProgress){
+            progressDialogFragment.show(this.fragmentManager,null)
+            progressDialogFragment.isCancelable =false
+        }
+        else
+            progressDialogFragment.dismiss()
     }
     fun checkIsEmptyPassword(){
         if (password.text.isEmpty() || newPassword.text.isEmpty()){
@@ -341,38 +362,39 @@ class  EditProfileFragment:BaseFragment(),View.OnClickListener,ViewHandlerUpdate
         preHandlerUpdateProfile.updateProfile()
     }
     override fun updateOnProgess() {
-        progressBar.visibility = View.VISIBLE
+        showProgressDialog(true)
     }
 
     override fun updateOnSuccess() {
-        progressBar.visibility = View.GONE
+        showProgressDialog(false)
         Toast.makeText(context,"Thay đổi thành công !",Toast.LENGTH_SHORT).show()
         isEmptyForm.visibility = View.GONE
         onResume()
     }
 
     override fun updaterOnFail() {
-        progressBar.visibility = View.GONE
+        showProgressDialog(false)
         isEmptyForm.visibility = View.GONE
         Toast.makeText(context,"Up load fail",Toast.LENGTH_SHORT).show()
     }
     override fun changeInProgress() {
-        progressBar.visibility = View.VISIBLE
+        showProgressDialog(true)
         countPassword.visibility = View.GONE
     }
 
     override fun changeOnSuccess() {
-        countPassword.visibility = View.GONE
+        showProgressDialog(false)
         progressBar.visibility = View.GONE
         password.text.clear()
         newPassword.text.clear()
         Toast.makeText(context,"Đổi mật khẩu thành công !",Toast.LENGTH_SHORT).show()
+        showDialog(getString(R.string.changesuccess))
     }
 
     override fun changeOnFail() {
         countPassword.visibility = View.GONE
-        progressBar.visibility = View.GONE
-        Toast.makeText(context,"Đổi mật khẩu thất bại !",Toast.LENGTH_SHORT).show()
+        showProgressDialog(false)
+        showDialog(getString(R.string.changefail))
     }
     override fun onResume() {
         super.onResume()

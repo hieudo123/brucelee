@@ -23,9 +23,10 @@
     <string name="share">Chia sẻ</string>
     <string name="test2">I can finally ask a question to get my points up.\nIn android studio,
         I want to be able to override the method, however I do not know the keyboard shortcut. Does anyone know?</string>
-    <string name="title">Nhập tiêu đề</string>
+
     <string name="createnew">Tạo tin tức</string>
-    <string name="content">Nhập nội dung</string>
+    <string name="content">Vui lòng nhập nội dung</string>
+    <string name="title">Vui lòng nhập tiêu đề</string>
     <string name="gioitinh">Giới tính</string>
     <string name="address">Địa chỉ</string>
     <string name="profile">Thông tin cá nhân</string>
@@ -65,5 +66,12 @@
     <string name="bathroom">phòng tắm</string>
     <string name="calendar">Lịch hẹn</string>
     <string name="cancle">Đóng</string>
-    <string name="emptyTitle">Vui lòng nhập tiêu đề</string>
+    <string name="emptyUsername">Vui lòng nhập họ tên</string>
+    <string name="emptyEmail">Vui lòng nhập email</string>
+    <string name="emptyPhone">Vui lòng nhập số điện thoại</string>
+    <string name="emptyPhone1">Chưa đủ độ dài</string>
+    <string name="emptyAdress">Vui lòng nhập địa chỉ</string>
+    <string name="changesuccess">Đổi mật khẩu thành công</string>
+    <string name="changefail">Đổi mật khẩu thất bại</string>
+
 </resources>

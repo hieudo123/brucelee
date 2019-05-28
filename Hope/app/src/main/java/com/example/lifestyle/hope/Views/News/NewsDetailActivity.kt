@@ -14,6 +14,7 @@ import android.util.TypedValue.*
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import com.eftimoff.viewpagertransformers.ZoomOutSlideTransformer
 import com.example.lifestyle.hope.Activity.BaseActivity
 import com.example.lifestyle.hope.Adapter.CommentAdapter
 import com.example.lifestyle.hope.Adapter.Image2Adapter
@@ -134,6 +135,7 @@ class  NewsDetailActivity:BaseActivity(),ViewHandlerGetNewsDetail,
     fun setViewPager(list : ArrayList<String>){
         viewAdapter = ViewpageAdapter(list,this)
         viewPager.adapter = viewAdapter
+        viewPager.setPageTransformer(true,ZoomOutSlideTransformer())
 
     }
     fun createSideShow(){
@@ -150,7 +152,7 @@ class  NewsDetailActivity:BaseActivity(),ViewHandlerGetNewsDetail,
             override fun run() {
                 handler.post(runnable)
             }
-        },200,1500)
+        },250,1500)
         viewPager.addOnPageChangeListener(object :ViewPager.OnPageChangeListener{
             override fun onPageScrollStateChanged(p0: Int) {
 

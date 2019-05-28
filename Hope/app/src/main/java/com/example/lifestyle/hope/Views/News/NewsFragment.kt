@@ -15,6 +15,7 @@ import android.widget.Toast
 import com.example.lifestyle.hope.Adapter.NewsAdapter
 import com.example.lifestyle.hope.CallBack
 import com.example.lifestyle.hope.Fragment.BaseFragment
+import com.example.lifestyle.hope.Fragment.ProgressDialogFragment
 import com.example.lifestyle.hope.Models.News
 import com.example.lifestyle.hope.R
 import com.example.lifestyle.hope.presenter.News.GetAllNews.PreHandlerNews
@@ -26,13 +27,11 @@ class NewsFragment:BaseFragment(),View.OnClickListener,ViewHandlerGetNews,CallBa
         startActivity(intent)
     }
 
-
+    var progressDialogFragment : ProgressDialogFragment = ProgressDialogFragment()
     lateinit var floatingActionButton: FloatingActionButton
     lateinit var recyclerView: RecyclerView
     var list =  ArrayList<News>()
     var page = 1
-    lateinit var progressBar: ProgressBar
-    lateinit var progressBarLastPage :ProgressBar
     lateinit var adapter:NewsAdapter
     lateinit var preHandlerNews: PreHandlerNews
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -45,15 +44,13 @@ class NewsFragment:BaseFragment(),View.OnClickListener,ViewHandlerGetNews,CallBa
         return view
     }
     fun init(view:View) {
-        progressBar = view.findViewById(R.id.progress)
-        progressBarLastPage = view.findViewById(R.id.prb_last_page)
         floatingActionButton = view.findViewById(R.id.fbtn_addnews) as FloatingActionButton
         floatingActionButton.setOnClickListener(this)
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener(){
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 if(isLastVisiable()){
-                    progressBarLastPage.visibility = View.VISIBLE
+                    showProgressDialog(true)
                         getNews(page)
                 }
             }
@@ -83,6 +80,14 @@ class NewsFragment:BaseFragment(),View.OnClickListener,ViewHandlerGetNews,CallBa
         recyclerView.layoutManager=linearLayoutManager
         recyclerView.adapter= adapter
     }
+    fun showProgressDialog(isProgress:Boolean){
+        if (isProgress){
+            progressDialogFragment.show(this.fragmentManager,null)
+            progressDialogFragment.isCancelable =false
+        }
+        else
+            progressDialogFragment.dismiss()
+    }
     override fun onClick(v: View?) {
         when(v?.id) {
             R.id.fbtn_addnews ->{
@@ -100,19 +105,18 @@ class NewsFragment:BaseFragment(),View.OnClickListener,ViewHandlerGetNews,CallBa
             loadOnSuccess(false)
 
     }
-
     override fun getAllNewsFail() {
         loadOnFail()
     }
     override fun loadInProgress(){
-         progressBar.visibility = View.VISIBLE
+        showProgressDialog(true)
      }
     override fun loadOnSuccess(isFirst :Boolean){
         page+=1
         //kiểm tra nếu nó là lần lấy data đầu tiên thì gọi là setAdapter
         if (isFirst){
             setAdapter()
-            progressBar.visibility = View.GONE
+            showProgressDialog(false)
         }
         //ngược lại lấy ra vị trí cuối và thay đổi adapter để ko bị load lại trang
         else{
@@ -121,13 +125,13 @@ class NewsFragment:BaseFragment(),View.OnClickListener,ViewHandlerGetNews,CallBa
             adapter.notifyDataSetChanged()
             recyclerView.layoutManager!!.onRestoreInstanceState(recyclerViewState)
         }
-        progressBarLastPage.visibility = View.GONE
+        showProgressDialog(false)
     }
     override fun loadOnFail(){
-        Toast.makeText(context,"Kiểm tra kết nối...",Toast.LENGTH_SHORT).show()
+        showProgressDialog(false)
     }
     override fun isLastPage() {
-        progressBarLastPage.visibility = View.GONE
+        showProgressDialog(false)
     }
 
     override fun onResume() {

@@ -23,6 +23,7 @@ import com.example.lifestyle.hope.Activity.BaseActivity
 import com.example.lifestyle.hope.Adapter.ImageAdapter
 import com.example.lifestyle.hope.Adapter.NewsAdapter
 import com.example.lifestyle.hope.Fragment.CautionDialogFragment
+import com.example.lifestyle.hope.Fragment.ProgressDialogFragment
 import com.example.lifestyle.hope.Models.BaseModels
 import com.example.lifestyle.hope.Models.News
 import com.example.lifestyle.hope.Models.Users
@@ -48,7 +49,7 @@ import kotlin.collections.ArrayList
 
 
 class CreateNewsActivity: BaseActivity(),View.OnClickListener,ViewHandlerCreateNews,UpLoadToFireBase {
-
+    var  progressDialogFragment : ProgressDialogFragment = ProgressDialogFragment()
     var storage = FirebaseStorage.getInstance("gs://hope-1557133861463.appspot.com")
     lateinit var picker: FloatingActionButton
     lateinit var users: Users
@@ -105,15 +106,25 @@ class CreateNewsActivity: BaseActivity(),View.OnClickListener,ViewHandlerCreateN
 
             }
             R.id.tv_sharenews->{
-                if(newsTitle.text.isNotEmpty() && bodyNews.text.isNotEmpty()){
-                    uploadFromLocalFile()
-                }
-                else{
-                    errorNotifi.visibility = View.VISIBLE
-                    errorNotifi.setText(getString(R.string.empty))
-                }
+               postNews()
             }
         }
+    }
+    fun showDialog(mess:String){
+        var dialogLoginFragment:CautionDialogFragment =CautionDialogFragment()
+        val args  = Bundle()
+        args.putString("title",mess)
+        dialogLoginFragment.arguments = args
+        dialogLoginFragment.show(supportFragmentManager,null)
+        dialogLoginFragment.isCancelable =false
+    }
+    fun postNews(){
+        if(newsTitle.text.isEmpty())
+            showDialog(getString(R.string.title))
+        else if (bodyNews.text.isEmpty())
+            showDialog(getString(R.string.content))
+        else
+            uploadFromLocalFile()
     }
     fun setAdapter(){
         adapter = ImageAdapter(imageList)
@@ -190,11 +201,11 @@ class CreateNewsActivity: BaseActivity(),View.OnClickListener,ViewHandlerCreateN
            }
        }
     }
-    fun postNews(){
-            preHandlerCreateNews = PreHandlerCreateNews(this, this)
-            preHandlerCreateNews.createNews(newsTitle.text.toString(),
-                    bodyNews.text.toString(),users.username,calendar.timeInMillis,imageUrl[0])
-    }
+//    fun postNews(){
+//            preHandlerCreateNews = PreHandlerCreateNews(this, this)
+//            preHandlerCreateNews.createNews(newsTitle.text.toString(),
+//                    bodyNews.text.toString(),users.username,calendar.timeInMillis,imageUrl[0])
+//    }
 //    fun test(){
 //        calendar  = Calendar.getInstance()
 //        val retrofit = RetrofitClient.getClient(Config.URL)
@@ -246,22 +257,29 @@ class CreateNewsActivity: BaseActivity(),View.OnClickListener,ViewHandlerCreateN
         Log.e("FULLNAME", cursor!!.getString(column_index!!))
         return cursor!!.getString(column_index!!)
     }
+    fun showProgressDialog(isProgress:Boolean){
+        if (isProgress){
+            progressDialogFragment.show(supportFragmentManager,null)
+            progressDialogFragment.isCancelable =false
+        }
+        else
+            progressDialogFragment.dismiss()
+    }
     override fun createInProgress() {
-        progressBar.visibility = View.VISIBLE
         errorNotifi.visibility = View.GONE
     }
     override fun createOnSuccess() {
-        progressBar.visibility = View.GONE
+        showProgressDialog(false)
         Toast.makeText(this, "Đăng thành công !", Toast.LENGTH_SHORT).show()
         errorNotifi.visibility = View.GONE
     }
     override fun createOnFail() {
-        progressBar.visibility = View.GONE
+        showProgressDialog(false)
         Toast.makeText(this,"Đăng thất bại !",Toast.LENGTH_SHORT).show()
         errorNotifi.visibility = View.GONE
     }
     override fun firebaseInProgress() {
-        progressBar.visibility = View.VISIBLE
+        showProgressDialog(true)
         errorNotifi.visibility = View.GONE
     }
 
@@ -272,12 +290,12 @@ class CreateNewsActivity: BaseActivity(),View.OnClickListener,ViewHandlerCreateN
             preHandlerCreateNewsV2.createNews(newsTitle.text.toString(),
                     bodyNews.text.toString(),users.id,calendar.timeInMillis,imageUrl)
         }
-        progressBar.visibility = View.GONE
+
         errorNotifi.visibility = View.GONE
     }
 
     override fun firebaseOnFail() {
-        progressBar.visibility = View.GONE
+        showProgressDialog(false)
         Toast.makeText(this,"Đăng thất bại !",Toast.LENGTH_SHORT).show()
         errorNotifi.visibility = View.GONE
     }
