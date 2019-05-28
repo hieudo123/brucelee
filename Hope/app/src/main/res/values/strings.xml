@@ -64,4 +64,6 @@
     <string name="room">phòng</string>
     <string name="bathroom">phòng tắm</string>
     <string name="calendar">Lịch hẹn</string>
+    <string name="cancle">Đóng</string>
+    <string name="emptyTitle">Vui lòng nhập tiêu đề</string>
 </resources>

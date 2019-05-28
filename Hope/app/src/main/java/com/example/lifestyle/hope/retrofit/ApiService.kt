@@ -52,4 +52,8 @@ interface ApiService {
              @Field ("Content") Content: String,
              @Field ("Createdby") CreatedBy: Int,
              @Field("Createdtime") CreatedTime: Long):Call<BaseModels>
+    @GET("GetImageNews.php")
+    fun getImageNews(@Query("id") id:Int):Call<test>
+    @GET("GetClassify.php")
+    fun  getClassify():Call<resClassify>
 }

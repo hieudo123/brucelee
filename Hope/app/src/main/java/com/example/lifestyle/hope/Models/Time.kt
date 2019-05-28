@@ -40,7 +40,7 @@ class Time {
     }
     fun getDateTime(s: String): String? {
         try {
-            val sdf = SimpleDateFormat("MM/dd/yyyy hh:mm:ss")
+            val sdf = SimpleDateFormat("dd/MM/yyyy hh:mm:ss")
             val netDate = Date(s.toLong())
             return sdf.format(netDate)
         } catch (e: Exception) {

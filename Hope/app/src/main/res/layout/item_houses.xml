@@ -12,7 +12,7 @@
         android:layout_height="match_parent">
         <ImageView
             android:id="@+id/iv_news"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             android:layout_width="match_parent"
             android:src="@drawable/background01"
             android:layout_height="@dimen/w200"/>
@@ -30,42 +30,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/price"/>
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_marginTop="@dimen/w5"
-                    android:id="@+id/tv_price_acreage"
-                    android:textSize="@dimen/w20"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:layout_weight="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/acreage"/>
-                <TextView
-                    android:drawablePadding="@dimen/w10"
-                    android:drawableLeft="@drawable/ic_door"
-                    android:layout_marginTop="@dimen/w5"
-                    android:id="@+id/tv_rooms"
-                    android:textSize="@dimen/w20"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:layout_weight="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/room"/>
-                <TextView
-                    android:drawablePadding="@dimen/w10"
-                    android:drawableLeft="@drawable/ic_bath"
-                    android:layout_marginTop="@dimen/w5"
-                    android:id="@+id/tv_bathrooms"
-                    android:textSize="@dimen/w20"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:layout_weight="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/bathroom"/>
-            </LinearLayout>
             <TextView
                 android:drawablePadding="@dimen/w5"
                 android:drawableLeft="@drawable/ic_location_on_black_24dp"
@@ -76,6 +40,48 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/address"/>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:gravity="center"
+                    android:drawablePadding="@dimen/w10"
+                    android:drawableLeft="@drawable/ic_door"
+                    android:layout_marginTop="@dimen/w5"
+                    android:id="@+id/tv_rooms"
+                    android:textSize="@dimen/w20"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="5"/>
+                <TextView
+                    android:gravity="center"
+                    android:drawablePadding="@dimen/w10"
+                    android:drawableLeft="@drawable/ic_bedroom"
+                    android:layout_marginTop="@dimen/w5"
+                    android:id="@+id/tv_bed_room"
+                    android:textSize="@dimen/w20"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="2"/>
+                <TextView
+                    android:gravity="center"
+                    android:drawablePadding="@dimen/w10"
+                    android:drawableLeft="@drawable/ic_bath"
+                    android:layout_marginTop="@dimen/w5"
+                    android:id="@+id/tv_bathrooms"
+                    android:textSize="@dimen/w20"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="3"/>
+            </LinearLayout>
+
             <View
                 android:layout_marginTop="@dimen/w10"
                 android:background="@color/login_button"

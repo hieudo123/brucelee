@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_height="match_parent">
-    <include layout="@layout/search_view"></include>
+    <include layout="@layout/search_view">
+    </include>
     <FrameLayout
+        android:layout_below="@+id/ll_boxSearch"
+        android:id="@+id/fl_container"
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:clipToPadding="true"
@@ -17,7 +20,8 @@
             android:layout_width="match_parent"
             android:id="@+id/progress"
             android:layout_height="@dimen/w35"/>
-        <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+        <android.support.v7.widget.RecyclerView
+            xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/rv_houses"
             android:scrollbarThumbVertical="@color/bg_sigin"
             android:layout_width="match_parent"
@@ -37,4 +41,4 @@
             </ProgressBar>
         </LinearLayout>
     </FrameLayout>
-</LinearLayout>
+</RelativeLayout>

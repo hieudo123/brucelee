@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/w5"
+    xmlns:tool="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <android.support.v7.widget.CardView
+        app:cardCornerRadius="@dimen/w15"
+        android:elevation="@dimen/w15"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:padding="@dimen/w15"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:background="@drawable/ic_caution"
+                android:layout_width="@dimen/w100"
+                android:layout_height="@dimen/w100" />
+            <TextView
+                android:layout_marginTop="@dimen/w10"
+                android:id="@+id/tv_title_dialog"
+                android:text="@string/notifi"
+                android:textSize="@dimen/sp18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:gravity="center"
+                android:textColor="@color/text_white"
+                android:id="@+id/tv_cancle"
+                android:layout_marginTop="@dimen/w15"
+                android:padding="@dimen/w10"
+                android:background="@drawable/bg_dialogbtn"
+                android:textSize="@dimen/sp18"
+                android:layout_width="@dimen/w200"
+                android:text="@string/cancle"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>

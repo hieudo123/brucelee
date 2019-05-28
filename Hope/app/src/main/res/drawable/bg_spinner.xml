@@ -6,12 +6,12 @@
 
             <item>
                 <shape>
-                  <solid android:color="@color/text_white"></solid>
+                    <solid android:color="@color/text_white"></solid>
+                    <corners android:radius="@dimen/w5"></corners>
                 </shape>
             </item>
 
-            <item>
-
+            <item android:right="@dimen/w5">
                 <bitmap android:gravity="center_vertical|right" android:src="@drawable/ic_down_arraw" />
 
             </item>
