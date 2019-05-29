@@ -29,7 +29,8 @@ class PreHandlerNews(var context: Context, var v : ViewHandlerGetNews, var list:
                     Log.e("LOL",list[0].content)
                     v.getAllNewsSuccess()
                 }
-                v.isLastPage()
+                else
+                    v.isLastPage()
             }
         })
     }

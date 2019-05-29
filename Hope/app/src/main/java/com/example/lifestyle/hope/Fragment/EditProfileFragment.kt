@@ -251,14 +251,14 @@ class  EditProfileFragment:BaseFragment(),View.OnClickListener,ViewHandlerUpdate
         dialogLoginFragment.show(this.fragmentManager,null)
         dialogLoginFragment.isCancelable =false
     }
-    fun showProgressDialog(isProgress:Boolean){
-        if (isProgress){
-            progressDialogFragment.show(this.fragmentManager,null)
-            progressDialogFragment.isCancelable =false
-        }
-        else
-            progressDialogFragment.dismiss()
-    }
+//    fun showProgressDialog(isProgress:Boolean){
+//        if (isProgress){
+//            progressDialogFragment.show(this.fragmentManager,null)
+//            progressDialogFragment.isCancelable =false
+//        }
+//        else
+//            progressDialogFragment.dismiss()
+//    }
     fun checkIsEmptyPassword(){
         if (password.text.isEmpty() || newPassword.text.isEmpty()){
             isEmptyForm.setText(getText(R.string.empty))

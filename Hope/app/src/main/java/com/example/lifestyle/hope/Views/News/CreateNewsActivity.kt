@@ -49,7 +49,7 @@ import kotlin.collections.ArrayList
 
 
 class CreateNewsActivity: BaseActivity(),View.OnClickListener,ViewHandlerCreateNews,UpLoadToFireBase {
-    var  progressDialogFragment : ProgressDialogFragment = ProgressDialogFragment()
+
     var storage = FirebaseStorage.getInstance("gs://hope-1557133861463.appspot.com")
     lateinit var picker: FloatingActionButton
     lateinit var users: Users
@@ -110,14 +110,14 @@ class CreateNewsActivity: BaseActivity(),View.OnClickListener,ViewHandlerCreateN
             }
         }
     }
-    fun showDialog(mess:String){
-        var dialogLoginFragment:CautionDialogFragment =CautionDialogFragment()
-        val args  = Bundle()
-        args.putString("title",mess)
-        dialogLoginFragment.arguments = args
-        dialogLoginFragment.show(supportFragmentManager,null)
-        dialogLoginFragment.isCancelable =false
-    }
+//    fun showDialog(mess:String){
+//        var dialogLoginFragment:CautionDialogFragment =CautionDialogFragment()
+//        val args  = Bundle()
+//        args.putString("title",mess)
+//        dialogLoginFragment.arguments = args
+//        dialogLoginFragment.show(supportFragmentManager,null)
+//        dialogLoginFragment.isCancelable =false
+//    }
     fun postNews(){
         if(newsTitle.text.isEmpty())
             showDialog(getString(R.string.title))
@@ -126,6 +126,7 @@ class CreateNewsActivity: BaseActivity(),View.OnClickListener,ViewHandlerCreateN
         else
             uploadFromLocalFile()
     }
+    //Show hình đã chọn
     fun setAdapter(){
         adapter = ImageAdapter(imageList)
         var GridLayoutManager :GridLayoutManager = GridLayoutManager(this,3)
@@ -234,6 +235,7 @@ class CreateNewsActivity: BaseActivity(),View.OnClickListener,ViewHandlerCreateN
 //            image.setImageBitmap(bitmap)
 //
 //        }
+    //Image Multi Picker
         if (ImagePicker.shouldHandle(requestCode, resultCode, data)) {
             // Get a list of picked images
             for (i: Int in 0..ImagePicker.getImages(data).size-1) {
@@ -244,6 +246,7 @@ class CreateNewsActivity: BaseActivity(),View.OnClickListener,ViewHandlerCreateN
         }
         super.onActivityResult(requestCode, resultCode, data)
     }
+    //Lấy full đường dẫn của Image
     fun getRealPathFromURI(contentUri: Uri): String {
         val proj = arrayOf(MediaStore.Audio.Media.DATA)
         val cursor = this.contentResolver?.query(contentUri,
@@ -257,14 +260,14 @@ class CreateNewsActivity: BaseActivity(),View.OnClickListener,ViewHandlerCreateN
         Log.e("FULLNAME", cursor!!.getString(column_index!!))
         return cursor!!.getString(column_index!!)
     }
-    fun showProgressDialog(isProgress:Boolean){
-        if (isProgress){
-            progressDialogFragment.show(supportFragmentManager,null)
-            progressDialogFragment.isCancelable =false
-        }
-        else
-            progressDialogFragment.dismiss()
-    }
+//    fun showProgressDialog(isProgress:Boolean){
+//        if (isProgress){
+//            progressDialogFragment.show(supportFragmentManager,null)
+//            progressDialogFragment.isCancelable =false
+//        }
+//        else
+//            progressDialogFragment.dismiss()
+//    }
     override fun createInProgress() {
         errorNotifi.visibility = View.GONE
     }

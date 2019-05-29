@@ -20,6 +20,7 @@ import com.example.lifestyle.hope.Views.Users.SiginUp.SiginUp
 import com.example.lifestyle.hope.presenter.Users.Login.PreHandlerLogin
 import android.widget.ProgressBar
 import com.example.lifestyle.hope.Fragment.CautionDialogFragment
+import com.example.lifestyle.hope.Fragment.ProgressDialogFragment
 import com.example.lifestyle.hope.Models.FacebookLogin
 import com.example.lifestyle.hope.utils.SharePref
 import com.facebook.*
@@ -37,7 +38,7 @@ import java.util.*
 
 
 class LoginActivity : AppCompatActivity(), ViewHandlerLogin, View.OnClickListener {
-
+    var  progressDialogFragment : ProgressDialogFragment = ProgressDialogFragment()
     lateinit var callbackManager: CallbackManager
     lateinit var loginfb:TextView
     lateinit var progressBar:ProgressBar
@@ -46,12 +47,12 @@ class LoginActivity : AppCompatActivity(), ViewHandlerLogin, View.OnClickListene
     lateinit var password: EditText
     lateinit var login: Button
     lateinit var sigin: Button
+    lateinit var siginGoogle: TextView
     lateinit var preHandlerLogin: PreHandlerLogin
     lateinit var showPassword:TextView
     lateinit var sharePref :SharePref
     lateinit var mGoogleSignInClient : GoogleSignInClient
     lateinit var faceBookLogin : FacebookLogin
-    lateinit var siginGoogle: TextView
     var RC_SIGN_IN = 1
     var user: Users? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -113,7 +114,7 @@ class LoginActivity : AppCompatActivity(), ViewHandlerLogin, View.OnClickListene
         when (v?.id) {
             R.id.btn_login -> {
                 Login(phone.text.toString(), password.text.toString())
-                progressBar.visibility = View.VISIBLE
+                showProgressDialog(true)
             }
             R.id.btn_sigin -> {
                 val intent = Intent(this,SiginUp::class.java)
@@ -158,6 +159,7 @@ class LoginActivity : AppCompatActivity(), ViewHandlerLogin, View.OnClickListene
         val signInIntent = mGoogleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
+    //Sign In Google onSuccess, this fun use get info of user
     fun handleSignInResult(task: com.google.android.gms.tasks.Task<GoogleSignInAccount>?) {
         try {
             val account = task?.getResult()
@@ -180,6 +182,15 @@ class LoginActivity : AppCompatActivity(), ViewHandlerLogin, View.OnClickListene
             Toast.makeText(this, "Google sign in failed", Toast.LENGTH_SHORT).show()
         }
     }
+    fun showProgressDialog(isProgress:Boolean){
+
+        if (isProgress){
+            progressDialogFragment.show(supportFragmentManager,null)
+            progressDialogFragment.isCancelable =false
+        }
+        else
+            progressDialogFragment.dismiss()
+    }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         callbackManager.onActivityResult(requestCode, resultCode, data)
@@ -190,7 +201,7 @@ class LoginActivity : AppCompatActivity(), ViewHandlerLogin, View.OnClickListene
             }
         }
     }
-
+    //this fun use for check user logined app and auto start main activity when user start app
     fun autoLogin(){
         if(AccessToken.getCurrentAccessToken()!=null ||GoogleSignIn.getLastSignedInAccount(this)!= null
                 ||sharePref.user != null){
@@ -200,7 +211,7 @@ class LoginActivity : AppCompatActivity(), ViewHandlerLogin, View.OnClickListene
         }
     }
     override fun LoginOnSuccess(mess: String) {
-        progressBar.visibility = View.GONE
+        showProgressDialog(false)
         Toast.makeText(this, mess, Toast.LENGTH_SHORT).show()
         val intent = Intent(this, WaitingActivity::class.java)
         startActivity(intent)
@@ -208,7 +219,7 @@ class LoginActivity : AppCompatActivity(), ViewHandlerLogin, View.OnClickListene
     }
     override fun LoginOnFail(mess: String) {
        showDialog(mess)
-        progressBar.visibility = View.GONE
+        showProgressDialog(false)
 
     }
     fun showDialog(mess:String){

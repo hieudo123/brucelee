@@ -19,6 +19,11 @@ open class BaseFragment:Fragment() {
          (activity as BaseActivity).replaceFrament(container,fragment,isBackStack)
       }
    }
+   fun showProgressDialog(isProgress:Boolean){
+      if(activity is BaseActivity){
+         (activity as BaseActivity).showProgressDialog(isProgress)
+      }
+   }
    open fun loadInProgress(){
 
    }

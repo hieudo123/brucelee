@@ -80,18 +80,17 @@ class NewsFragment:BaseFragment(),View.OnClickListener,ViewHandlerGetNews,CallBa
         recyclerView.layoutManager=linearLayoutManager
         recyclerView.adapter= adapter
     }
-    fun showProgressDialog(isProgress:Boolean){
-        if (isProgress){
-            progressDialogFragment.show(this.fragmentManager,null)
-            progressDialogFragment.isCancelable =false
-        }
-        else
-            progressDialogFragment.dismiss()
-    }
+//    fun showProgressDialog(isProgress:Boolean){
+//        if (isProgress){
+//            progressDialogFragment.show(this.fragmentManager,null)
+//            progressDialogFragment.isCancelable =false
+//        }
+//        else
+//            progressDialogFragment.dismiss()
+//    }
     override fun onClick(v: View?) {
         when(v?.id) {
             R.id.fbtn_addnews ->{
-                Toast.makeText(context,"OK",Toast.LENGTH_SHORT).show()
                 var intent = Intent(context, CreateNewsActivity::class.java)
                 startActivity(intent)
             }

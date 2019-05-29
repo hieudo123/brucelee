@@ -14,6 +14,8 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import com.example.lifestyle.hope.Fragment.CautionDialogFragment
+import com.example.lifestyle.hope.Fragment.ProgressDialogFragment
 import com.example.lifestyle.hope.Models.MyFirebaseMessagingService
 import com.example.lifestyle.hope.R
 import com.google.android.gms.tasks.OnCompleteListener
@@ -33,6 +35,7 @@ import io.socket.client.Socket
 
 
 abstract class BaseActivity : AppCompatActivity() {
+    var  progressDialogFragment : ProgressDialogFragment = ProgressDialogFragment()
     lateinit var notifi:ImageView
     lateinit var counter:TextView
     lateinit var toolbar: Toolbar
@@ -123,6 +126,22 @@ abstract class BaseActivity : AppCompatActivity() {
              counter.visibility = View.VISIBLE
          }
      }
+    fun showDialog(mess:String){
+        var dialogLoginFragment: CautionDialogFragment = CautionDialogFragment()
+        val args  = Bundle()
+        args.putString("title",mess)
+        dialogLoginFragment.arguments = args
+        dialogLoginFragment.show(fragmentManager,null)
+        dialogLoginFragment.isCancelable =false
+    }
+    fun showProgressDialog(isProgress:Boolean){
+        if (isProgress && !progressDialogFragment.isAdded && !progressDialogFragment.isVisible){
+            progressDialogFragment.show(fragmentManager,null)
+            progressDialogFragment.isCancelable =false
+        }
+        else
+            progressDialogFragment.dismiss()
+    }
      override fun setTitle(resId: Int) {
          tvtitle.setText(resId)
          super.setTitle(resId)
